@@ -30,7 +30,7 @@
         font-family: "Dancing Script", cursive;
       }
 
-      /* Theme Classes */
+      /* Theme Variables */
       .light {
         --bg: #fafaf9;
         --bg-secondary: #f0f9ff;
@@ -103,7 +103,7 @@
         overflow-x: hidden;
       }
 
-      /* Section Styles - Fixed spacing */
+      /* Section Layout Styles */
       section {
         padding: 100px 0;
         min-height: 100vh;
@@ -119,7 +119,7 @@
         }
       }
 
-      /* Navigation */
+      /* Navigation Bar Styles */
       nav {
         background: var(--nav-bg);
         backdrop-filter: blur(20px);
@@ -134,7 +134,7 @@
         height: 70px;
       }
 
-      /* Nav Links */
+      /* Navigation Links */
       .nav-link {
         position: relative;
         transition: all 0.3s ease;
@@ -162,7 +162,7 @@
         color: #e11d48;
       }
 
-      /* Menu Card Styles */
+      /* Menu Card Elements */
       .menu-card {
         background: var(--card);
         border: 1px solid var(--border);
@@ -171,6 +171,8 @@
         border-radius: 24px;
         overflow: hidden;
         height: 100%;
+        display: flex;
+        flex-direction: column;
       }
 
       .menu-card:hover {
@@ -184,7 +186,7 @@
         transform: scale(1.1);
       }
 
-      /* Category Buttons */
+      /* Category Filter Buttons */
       .category-btn {
         transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         background: var(--card);
@@ -213,7 +215,7 @@
         transform: translateY(-3px);
       }
 
-      /* Add to Cart Button */
+      /* Cart Action Button */
       .add-cart-btn {
         background: linear-gradient(135deg, #e11d48, #f43f5e);
         transition: all 0.4s ease;
@@ -225,6 +227,7 @@
         cursor: pointer;
         border: none;
         width: 100%;
+        margin-top: auto;
       }
 
       .add-cart-btn:hover {
@@ -258,7 +261,7 @@
         }
       }
 
-      /* Badge Styles */
+      /* Item Badge Styles */
       .popular-badge {
         background: linear-gradient(135deg, #f59e0b, #d97706);
         animation: float 3s ease-in-out infinite;
@@ -285,7 +288,7 @@
         box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
       }
 
-      /* Theme Toggle */
+      /* Theme Toggle Component */
       .theme-toggle {
         cursor: pointer;
         transition: all 0.4s ease;
@@ -302,7 +305,9 @@
         height: 24px;
         background: white;
         border-radius: 50%;
-        transition: all 0.4s ease;
+        transition:
+          transform 0.4s ease,
+          background 0.4s ease;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -314,13 +319,13 @@
         background: #1e293b;
       }
 
-      /* Rating Stars */
+      /* Star Rating Appearance */
       .stars {
         color: #f59e0b;
         letter-spacing: 2px;
       }
 
-      /* Scrollbar */
+      /* Custom Scrollbar Styling */
       ::-webkit-scrollbar {
         width: 10px;
       }
@@ -332,34 +337,25 @@
         border-radius: 5px;
       }
 
-      /* Image Loading */
+      /* Card Image Loading Transition */
       .card-image img {
         transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
 
-      /* Toast Notification */
+      /* Toast Notification Animation */
       .toast {
         background: var(--card);
         border: 2px solid #10b981;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        animation: slideIn 0.5s ease;
         border-radius: 16px;
         position: fixed;
         z-index: 100;
+        transition:
+          transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          opacity 0.5s ease;
       }
 
-      @keyframes slideIn {
-        from {
-          transform: translateX(100%);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
-
-      /* Footer Styles */
+      /* Footer Elements */
       footer {
         background: var(--footer-bg);
         color: var(--footer-text);
@@ -397,7 +393,7 @@
         transform: translateX(5px);
       }
 
-      /* Mobile Menu */
+      /* Mobile Navigation Overlay */
       .mobile-menu {
         position: fixed;
         top: 0;
@@ -427,7 +423,7 @@
         padding-top: 100px;
       }
 
-      /* Contact Section */
+      /* Contact Cards */
       .contact-card {
         background: var(--card);
         border: 1px solid var(--border);
@@ -441,7 +437,7 @@
         border-color: #e11d4840;
       }
 
-      /* Map Container */
+      /* Interactive Map Container */
       .map-container {
         border-radius: 20px;
         overflow: hidden;
@@ -449,7 +445,7 @@
         box-shadow: var(--shadow);
       }
 
-      /* Responsive fixes */
+      /* Responsive Adjustments */
       @media (max-width: 1024px) {
         section {
           padding: 80px 0;
@@ -498,6 +494,7 @@
       }
     </style>
     <script>
+      // Tailwind CSS Configuration
       tailwind.config = {
         darkMode: "class",
         theme: {
@@ -507,11 +504,9 @@
     </script>
   </head>
   <body class="font-inter">
-    <!-- Navigation -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 h-full">
         <div class="flex justify-between items-center h-full">
-          <!-- Logo -->
           <a href="#home" class="flex items-center space-x-3 flex-shrink-0">
             <div
               class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg shadow-rose-500/20"
@@ -531,7 +526,6 @@
             </div>
           </a>
 
-          <!-- Desktop Nav Links -->
           <div class="hidden lg:flex items-center space-x-6 xl:space-x-8">
             <a
               href="#home"
@@ -564,15 +558,14 @@
             >
           </div>
 
-          <!-- Actions -->
           <div class="flex items-center space-x-2 sm:space-x-4">
             <div
+              id="themeToggleBtn"
               class="theme-toggle flex-shrink-0"
-              onclick="toggleTheme()"
               title="Dark/Light mode"
             >
               <div class="theme-toggle-circle">
-                <i class="fas fa-sun text-yellow-500"></i>
+                <i class="fas fa-sun text-yellow-500 block dark:hidden"></i>
                 <i class="fas fa-moon text-blue-400 hidden dark:block"></i>
               </div>
             </div>
@@ -610,7 +603,6 @@
       </div>
     </nav>
 
-    <!-- Mobile Menu -->
     <div id="mobileMenu" class="mobile-menu">
       <div class="mobile-menu-content">
         <button
@@ -654,7 +646,6 @@
       </div>
     </div>
 
-    <!-- Hero Section -->
     <section id="home" style="background: var(--hero-bg); padding-top: 120px">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
         <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -781,7 +772,6 @@
       </div>
     </section>
 
-    <!-- Menu Section -->
     <section id="menu" style="background: var(--bg)">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
         <div class="text-center mb-8 sm:mb-12 lg:mb-16">
@@ -809,35 +799,35 @@
 
         <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12">
           <button
-            onclick="filterCategory('all', this)"
+            onclick="handleCategoryFilter('all', this)"
             class="category-btn active flex items-center space-x-1 sm:space-x-2"
           >
             <i class="fas fa-th-large text-xs sm:text-sm"></i>
             <span>Barchasi</span>
           </button>
           <button
-            onclick="filterCategory('milliy', this)"
+            onclick="handleCategoryFilter('milliy', this)"
             class="category-btn flex items-center space-x-1 sm:space-x-2"
           >
             <i class="fas fa-utensils text-xs sm:text-sm"></i>
             <span>Milliy</span>
           </button>
           <button
-            onclick="filterCategory('fastfood', this)"
+            onclick="handleCategoryFilter('fastfood', this)"
             class="category-btn flex items-center space-x-1 sm:space-x-2"
           >
             <i class="fas fa-burger text-xs sm:text-sm"></i>
             <span>Fast Food</span>
           </button>
           <button
-            onclick="filterCategory('ichimliklar', this)"
+            onclick="handleCategoryFilter('ichimliklar', this)"
             class="category-btn flex items-center space-x-1 sm:space-x-2"
           >
             <i class="fas fa-mug-hot text-xs sm:text-sm"></i>
             <span>Ichimliklar</span>
           </button>
           <button
-            onclick="filterCategory('shirinliklar', this)"
+            onclick="handleCategoryFilter('shirinliklar', this)"
             class="category-btn flex items-center space-x-1 sm:space-x-2"
           >
             <i class="fas fa-cake-candles text-xs sm:text-sm"></i>
@@ -848,13 +838,10 @@
         <div
           id="menuGrid"
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
-        >
-          <!-- Generated by JS -->
-        </div>
+        ></div>
       </div>
     </section>
 
-    <!-- Special Section -->
     <section id="special" style="background: var(--bg-secondary)">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full text-center">
         <span
@@ -946,7 +933,6 @@
       </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" style="background: var(--bg)">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
         <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -1012,7 +998,6 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" style="background: var(--bg-secondary)">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
         <div class="text-center mb-8 sm:mb-12">
@@ -1039,7 +1024,6 @@
         </div>
 
         <div class="grid lg:grid-cols-2 gap-6 lg:gap-8">
-          <!-- Left Side - Contact Info -->
           <div class="space-y-4 sm:space-y-6">
             <div class="contact-card">
               <div class="flex items-start space-x-4">
@@ -1177,7 +1161,6 @@
             </div>
           </div>
 
-          <!-- Right Side - Map -->
           <div
             class="map-container h-[300px] sm:h-[400px] lg:h-full min-h-[400px]"
           >
@@ -1197,7 +1180,6 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <footer>
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div
@@ -1292,17 +1274,16 @@
           style="border-color: rgba(255, 255, 255, 0.1)"
         >
           <p>
-            &copy; 2026 Gusto Restaurant. Barcha huquqlar himoyalangan.
-            Samarqand shahri.
+            © 2026 Gusto Restaurant. Barcha huquqlar himoyalangan. Samarqand
+            shahri.
           </p>
         </div>
       </div>
     </footer>
 
-    <!-- Toast Notification -->
     <div
       id="toast"
-      class="toast bottom-4 right-4 sm:bottom-8 sm:right-8 rounded-2xl p-3 sm:p-4 shadow-2xl transform translate-x-full transition-all duration-500 hidden"
+      class="toast bottom-4 right-4 sm:bottom-8 sm:right-8 rounded-2xl p-3 sm:p-4 shadow-2xl transform translate-x-full hidden"
     >
       <div class="flex items-center space-x-3">
         <div
@@ -1327,320 +1308,394 @@
     </div>
 
     <script>
-      // Theme Toggle
-      function toggleTheme() {
-        const html = document.documentElement;
-        if (html.classList.contains("light")) {
-          html.classList.remove("light");
-          html.classList.add("dark");
-          localStorage.setItem("theme", "dark");
-        } else {
-          html.classList.remove("dark");
-          html.classList.add("light");
-          localStorage.setItem("theme", "light");
-        }
-      }
+      // Initialize core logic when the Document Object Model is completely loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- Theme Configuration Logic ---
+        const htmlRootElement = document.documentElement;
+        const themeToggleBtnElement = document.getElementById("themeToggleBtn");
+        const savedThemePreference = localStorage.getItem("theme") || "light";
 
-      const savedTheme = localStorage.getItem("theme") || "light";
-      document.documentElement.classList.remove("light", "dark");
-      document.documentElement.classList.add(savedTheme);
+        // Apply saved theme state on initial page load
+        htmlRootElement.className = savedThemePreference;
 
-      // Mobile Menu
-      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-      const mobileMenu = document.getElementById("mobileMenu");
-      const closeMobileMenu = document.getElementById("closeMobileMenu");
-
-      mobileMenuBtn.addEventListener("click", () => {
-        mobileMenu.classList.add("open");
-      });
-
-      closeMobileMenu.addEventListener("click", () => {
-        mobileMenu.classList.remove("open");
-      });
-
-      mobileMenu.addEventListener("click", (e) => {
-        if (e.target === mobileMenu) {
-          mobileMenu.classList.remove("open");
-        }
-      });
-
-      document.querySelectorAll(".mobile-nav-link").forEach((link) => {
-        link.addEventListener("click", () => {
-          mobileMenu.classList.remove("open");
-        });
-      });
-
-      // Navbar scroll effect
-      window.addEventListener("scroll", () => {
-        const navbar = document.getElementById("navbar");
-        if (window.scrollY > 50) {
-          navbar.classList.add("scrolled");
-        } else {
-          navbar.classList.remove("scrolled");
-        }
-
-        const sections = document.querySelectorAll("section[id]");
-        const navLinks = document.querySelectorAll(".nav-link");
-
-        sections.forEach((section) => {
-          const sectionTop = section.offsetTop - 100;
-          const sectionHeight = section.offsetHeight;
-          if (
-            window.scrollY >= sectionTop &&
-            window.scrollY < sectionTop + sectionHeight
-          ) {
-            navLinks.forEach((link) => {
-              link.classList.remove("active", "text-rose-500");
-              if (link.getAttribute("href") === `#${section.id}`) {
-                link.classList.add("active", "text-rose-500");
-              }
-            });
+        // Attach event listener for toggling light/dark theme modes
+        themeToggleBtnElement.addEventListener("click", () => {
+          if (htmlRootElement.classList.contains("light")) {
+            htmlRootElement.classList.remove("light");
+            htmlRootElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+          } else {
+            htmlRootElement.classList.remove("dark");
+            htmlRootElement.classList.add("light");
+            localStorage.setItem("theme", "light");
           }
         });
-      });
 
-      // Menu Data
-      const menuItems = [
-        {
-          id: 1,
-          name: "Osh",
-          description: "An'anaviy o'zbek oshi, qo'y go'shti va za'faron bilan",
-          price: 65000,
-          oldPrice: 75000,
-          image:
-            "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=500&h=400&fit=crop&q=80",
-          category: "milliy",
-          rating: 4.9,
-          popular: true,
-          isNew: false,
-        },
-        {
-          id: 2,
-          name: "Manti",
-          description: "Bug'da pishirilgan qiyma go'shtli manti, qaymoq bilan",
-          price: 45000,
-          image:
-            "https://images.unsplash.com/photo-1544025162-d76694265947?w=500&h=400&fit=crop&q=80",
-          category: "milliy",
-          rating: 4.8,
-          popular: true,
-          isNew: false,
-        },
-        {
-          id: 3,
-          name: "Sho'rva",
-          description: "Sabzavot va qo'y go'shtidan tayyorlangan boy sho'rva",
-          price: 38000,
-          image:
-            "https://images.unsplash.com/photo-1594756202469-9ff9799b2e4e?w=500&h=400&fit=crop&q=80",
-          category: "milliy",
-          rating: 4.7,
-          popular: false,
-          isNew: true,
-        },
-        {
-          id: 4,
-          name: "Lavash",
-          description: "Go'sht, pishloq, pomidor va maxsus sousli lavash",
-          price: 32000,
-          oldPrice: 38000,
-          image:
-            "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=400&fit=crop&q=80",
-          category: "fastfood",
-          rating: 4.6,
-          popular: false,
-          isNew: false,
-        },
-        {
-          id: 5,
-          name: "Gamburger",
-          description:
-            "Angus mol go'shti, cheddar pishlog'i, yangi sabzavotlar",
-          price: 42000,
-          image:
-            "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&h=400&fit=crop&q=80",
-          category: "fastfood",
-          rating: 4.5,
-          popular: false,
-          isNew: true,
-        },
-        {
-          id: 6,
-          name: "Pizza",
-          description: "Italyancha yupqa pizza, mozzarella va rayhon bilan",
-          price: 58000,
-          image:
-            "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&h=400&fit=crop&q=80",
-          category: "fastfood",
-          rating: 4.9,
-          popular: true,
-          isNew: false,
-        },
-        {
-          id: 7,
-          name: "Limonad",
-          description: "Yangi limon, yalpiz va tabiiy asal bilan tayyorlangan",
-          price: 18000,
-          image:
-            "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=500&h=400&fit=crop&q=80",
-          category: "ichimliklar",
-          rating: 4.4,
-          popular: false,
-          isNew: false,
-        },
-        {
-          id: 8,
-          name: "Moxito",
-          description: "Yangi yalpiz, laym va soda bilan tayyorlangan moxito",
-          price: 25000,
-          image:
-            "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=500&h=400&fit=crop&q=80",
-          category: "ichimliklar",
-          rating: 4.7,
-          popular: true,
-          isNew: false,
-        },
-        {
-          id: 9,
-          name: "Choy",
-          description: "Tanlangan premium choy, asal va limon bilan",
-          price: 12000,
-          image:
-            "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&h=400&fit=crop&q=80",
-          category: "ichimliklar",
-          rating: 4.3,
-          popular: false,
-          isNew: false,
-        },
-        {
-          id: 10,
-          name: "Medovik",
-          description: "Yumshoq bol va qaymoqli qatlamli klassik desert",
-          price: 35000,
-          image:
-            "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=400&fit=crop&q=80",
-          category: "shirinliklar",
-          rating: 4.8,
-          popular: false,
-          isNew: false,
-        },
-        {
-          id: 11,
-          name: "Chizkeyk",
-          description: "Nyu-York uslubidagi qaymoqli chizkeyk, berry sousi",
-          price: 42000,
-          oldPrice: 48000,
-          image:
-            "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500&h=400&fit=crop&q=80",
-          category: "shirinliklar",
-          rating: 4.9,
-          popular: true,
-          isNew: false,
-        },
-        {
-          id: 12,
-          name: "Dondurma",
-          description: "Italyancha gelato - vanil, shokolad va pistachio",
-          price: 22000,
-          image:
-            "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=500&h=400&fit=crop&q=80",
-          category: "shirinliklar",
-          rating: 4.6,
-          popular: false,
-          isNew: true,
-        },
-      ];
+        // --- Mobile Navigation Logic ---
+        const mobileNavigationBtn = document.getElementById("mobileMenuBtn");
+        const mobileNavigationContainer = document.getElementById("mobileMenu");
+        const closeMobileMenuBtn = document.getElementById("closeMobileMenu");
+        const mobileNavigationLinks =
+          document.querySelectorAll(".mobile-nav-link");
 
-      let cartCount = 0;
-
-      function displayMenu(items) {
-        const menuGrid = document.getElementById("menuGrid");
-        menuGrid.innerHTML = "";
-
-        if (items.length === 0) {
-          menuGrid.innerHTML = `
-            <div class="col-span-full text-center py-12 sm:py-20">
-              <i class="fas fa-utensils text-4xl sm:text-6xl mb-4 opacity-20"></i>
-              <p class="text-base sm:text-xl" style="color: var(--text-secondary)">Bu kategoriyada hozircha taom yo'q</p>
-            </div>
-          `;
-          return;
-        }
-
-        items.forEach((item) => {
-          const card = document.createElement("div");
-          card.className = "menu-card";
-          card.innerHTML = `
-            <div class="card-image relative h-48 sm:h-56 lg:h-64 overflow-hidden">
-              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
-              ${item.popular ? `<div class="popular-badge absolute top-3 right-3 sm:top-4 sm:right-4 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center space-x-1 sm:space-x-1.5"><i class="fas fa-fire"></i><span>Mashhur</span></div>` : ""}
-              ${item.isNew ? `<div class="new-badge absolute top-3 right-3 sm:top-4 sm:right-4 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center space-x-1 sm:space-x-1.5"><i class="fas fa-sparkles"></i><span>Yangi</span></div>` : ""}
-              ${item.oldPrice ? `<div class="discount-badge absolute top-3 left-3 sm:top-4 sm:left-4 text-white px-2 sm:px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold">-${Math.round((1 - item.price / item.oldPrice) * 100)}%</div>` : ""}
-            </div>
-            <div class="p-4 sm:p-6">
-              <div class="flex items-center justify-between mb-2">
-                <h3 class="text-lg sm:text-xl font-bold font-playfair" style="color: var(--text)">${item.name}</h3>
-                <div class="flex items-center space-x-1">
-                  <span class="stars text-xs sm:text-sm">${"★".repeat(Math.floor(item.rating))}${item.rating % 1 >= 0.5 ? "½" : ""}</span>
-                  <span class="text-xs sm:text-sm font-bold text-yellow-500">${item.rating}</span>
-                </div>
-              </div>
-              <p class="text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed" style="color: var(--text-secondary)">${item.description}</p>
-              <div class="flex items-center justify-between mb-3 sm:mb-4">
-                <div class="flex items-baseline space-x-2">
-                  <span class="text-xl sm:text-2xl font-bold text-rose-500">${item.price.toLocaleString()}</span>
-                  <span class="text-xs sm:text-sm" style="color: var(--text-secondary)">so'm</span>
-                  ${item.oldPrice ? `<span class="text-xs sm:text-sm line-through" style="color: var(--text-secondary)">${item.oldPrice.toLocaleString()}</span>` : ""}
-                </div>
-              </div>
-              <button onclick="addToCart('${item.name}', ${item.price})" class="add-cart-btn text-white text-sm sm:text-base flex items-center justify-center space-x-2">
-                <i class="fas fa-shopping-bag"></i>
-                <span>Savatga qo'shish</span>
-              </button>
-            </div>
-          `;
-          menuGrid.appendChild(card);
+        // Open mobile navigation sidebar
+        mobileNavigationBtn.addEventListener("click", () => {
+          mobileNavigationContainer.classList.add("open");
         });
-      }
 
-      function addToCart(name, price) {
-        cartCount++;
-        const badge = document.getElementById("cartBadge");
-        badge.textContent = cartCount;
-        badge.classList.add("scale-125");
-        setTimeout(() => badge.classList.remove("scale-125"), 200);
+        // Close mobile navigation sidebar explicitly via close button
+        closeMobileMenuBtn.addEventListener("click", () => {
+          mobileNavigationContainer.classList.remove("open");
+        });
 
-        const toast = document.getElementById("toast");
-        const toastMessage = document.getElementById("toastMessage");
-        toastMessage.textContent = `${name} - ${price.toLocaleString()} so'm`;
-        toast.classList.remove("hidden");
-        setTimeout(() => toast.classList.remove("translate-x-full"), 100);
-        setTimeout(() => {
-          toast.classList.add("translate-x-full");
-          setTimeout(() => toast.classList.add("hidden"), 500);
-        }, 2500);
-      }
+        // Collapse mobile navigation when a background area click is detected
+        mobileNavigationContainer.addEventListener("click", (event) => {
+          if (event.target === mobileNavigationContainer) {
+            mobileNavigationContainer.classList.remove("open");
+          }
+        });
 
-      function filterCategory(category, buttonElement) {
-        const buttons = document.querySelectorAll(".category-btn");
-        buttons.forEach((btn) => btn.classList.remove("active"));
-        buttonElement.classList.add("active");
+        // Collapse mobile navigation automatically when a route link is selected
+        mobileNavigationLinks.forEach((navigationLink) => {
+          navigationLink.addEventListener("click", () => {
+            mobileNavigationContainer.classList.remove("open");
+          });
+        });
 
-        let filteredItems;
-        if (category === "all") {
-          filteredItems = menuItems;
-        } else {
-          filteredItems = menuItems.filter(
-            (item) => item.category === category,
+        // --- Window Scroll Tracking Logic ---
+        const primaryNavigationBar = document.getElementById("navbar");
+        const pageSectionsElements = document.querySelectorAll("section[id]");
+        const desktopNavigationLinks = document.querySelectorAll(".nav-link");
+
+        window.addEventListener("scroll", () => {
+          // Adjust navigation bar aesthetics when scrolling down
+          if (window.scrollY > 50) {
+            primaryNavigationBar.classList.add("scrolled");
+          } else {
+            primaryNavigationBar.classList.remove("scrolled");
+          }
+
+          // Apply active styling to the navigation link correlating with current scroll position
+          const currentWindowScrollY = window.scrollY;
+
+          pageSectionsElements.forEach((pageSection) => {
+            const sectionTopOffsetPosition = pageSection.offsetTop - 100;
+            const sectionTotalHeightValue = pageSection.offsetHeight;
+
+            if (
+              currentWindowScrollY >= sectionTopOffsetPosition &&
+              currentWindowScrollY <
+                sectionTopOffsetPosition + sectionTotalHeightValue
+            ) {
+              desktopNavigationLinks.forEach((navLinkItem) => {
+                navLinkItem.classList.remove("active", "text-rose-500");
+                if (navLinkItem.getAttribute("href") === `#${pageSection.id}`) {
+                  navLinkItem.classList.add("active", "text-rose-500");
+                }
+              });
+            }
+          });
+        });
+
+        // --- Restaurant Product Menu Logic ---
+        const restaurantMenuGridContainer = document.getElementById("menuGrid");
+        const categoryFilterButtonsList =
+          document.querySelectorAll(".category-btn");
+        let shoppingCartTotalItems = 0;
+
+        // Static data defining all available restaurant dishes
+        const restaurantMenuItemsCollection = [
+          {
+            id: 1,
+            name: "Osh",
+            description:
+              "An'anaviy o'zbek oshi, qo'y go'shti va za'faron bilan",
+            price: 65000,
+            oldPrice: 75000,
+            image:
+              "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=500&h=400&fit=crop&q=80",
+            category: "milliy",
+            rating: 4.9,
+            popular: true,
+            isNew: false,
+          },
+          {
+            id: 2,
+            name: "Manti",
+            description:
+              "Bug'da pishirilgan qiyma go'shtli manti, qaymoq bilan",
+            price: 45000,
+            image:
+              "https://images.unsplash.com/photo-1544025162-d76694265947?w=500&h=400&fit=crop&q=80",
+            category: "milliy",
+            rating: 4.8,
+            popular: true,
+            isNew: false,
+          },
+          {
+            id: 3,
+            name: "Sho'rva",
+            description: "Sabzavot va qo'y go'shtidan tayyorlangan boy sho'rva",
+            price: 38000,
+            image:
+              "https://images.unsplash.com/photo-1594756202469-9ff9799b2e4e?w=500&h=400&fit=crop&q=80",
+            category: "milliy",
+            rating: 4.7,
+            popular: false,
+            isNew: true,
+          },
+          {
+            id: 4,
+            name: "Lavash",
+            description: "Go'sht, pishloq, pomidor va maxsus sousli lavash",
+            price: 32000,
+            oldPrice: 38000,
+            image:
+              "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=400&fit=crop&q=80",
+            category: "fastfood",
+            rating: 4.6,
+            popular: false,
+            isNew: false,
+          },
+          {
+            id: 5,
+            name: "Gamburger",
+            description:
+              "Angus mol go'shti, cheddar pishlog'i, yangi sabzavotlar",
+            price: 42000,
+            image:
+              "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&h=400&fit=crop&q=80",
+            category: "fastfood",
+            rating: 4.5,
+            popular: false,
+            isNew: true,
+          },
+          {
+            id: 6,
+            name: "Pizza",
+            description: "Italyancha yupqa pizza, mozzarella va rayhon bilan",
+            price: 58000,
+            image:
+              "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&h=400&fit=crop&q=80",
+            category: "fastfood",
+            rating: 4.9,
+            popular: true,
+            isNew: false,
+          },
+          {
+            id: 7,
+            name: "Limonad",
+            description:
+              "Yangi limon, yalpiz va tabiiy asal bilan tayyorlangan",
+            price: 18000,
+            image:
+              "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=500&h=400&fit=crop&q=80",
+            category: "ichimliklar",
+            rating: 4.4,
+            popular: false,
+            isNew: false,
+          },
+          {
+            id: 8,
+            name: "Moxito",
+            description: "Yangi yalpiz, laym va soda bilan tayyorlangan moxito",
+            price: 25000,
+            image:
+              "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=500&h=400&fit=crop&q=80",
+            category: "ichimliklar",
+            rating: 4.7,
+            popular: true,
+            isNew: false,
+          },
+          {
+            id: 9,
+            name: "Choy",
+            description: "Tanlangan premium choy, asal va limon bilan",
+            price: 12000,
+            image:
+              "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&h=400&fit=crop&q=80",
+            category: "ichimliklar",
+            rating: 4.3,
+            popular: false,
+            isNew: false,
+          },
+          {
+            id: 10,
+            name: "Medovik",
+            description: "Yumshoq bol va qaymoqli qatlamli klassik desert",
+            price: 35000,
+            image:
+              "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=400&fit=crop&q=80",
+            category: "shirinliklar",
+            rating: 4.8,
+            popular: false,
+            isNew: false,
+          },
+          {
+            id: 11,
+            name: "Chizkeyk",
+            description: "Nyu-York uslubidagi qaymoqli chizkeyk, berry sousi",
+            price: 42000,
+            oldPrice: 48000,
+            image:
+              "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500&h=400&fit=crop&q=80",
+            category: "shirinliklar",
+            rating: 4.9,
+            popular: true,
+            isNew: false,
+          },
+          {
+            id: 12,
+            name: "Dondurma",
+            description: "Italyancha gelato - vanil, shokolad va pistachio",
+            price: 22000,
+            image:
+              "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=500&h=400&fit=crop&q=80",
+            category: "shirinliklar",
+            rating: 4.6,
+            popular: false,
+            isNew: true,
+          },
+        ];
+
+        // Core function dedicated to rendering product items directly into HTML elements
+        window.renderRestaurantMenuItems = function (productsToRenderArray) {
+          restaurantMenuGridContainer.innerHTML = "";
+
+          // Render fallback visual when filtered category possesses no records
+          if (productsToRenderArray.length === 0) {
+            restaurantMenuGridContainer.innerHTML = `
+              <div class="col-span-full text-center py-12 sm:py-20">
+                <i class="fas fa-utensils text-4xl sm:text-6xl mb-4 opacity-20"></i>
+                <p class="text-base sm:text-xl" style="color: var(--text-secondary)">Bu kategoriyada hozircha taom yo'q</p>
+              </div>
+            `;
+            return;
+          }
+
+          // Generate structured DOM components for every existing item in the array
+          productsToRenderArray.forEach((menuProduct) => {
+            const productCardHtmlElement = document.createElement("div");
+            productCardHtmlElement.className =
+              "menu-card flex flex-col h-full justify-between";
+
+            const calculatedDiscountValue = menuProduct.oldPrice
+              ? Math.round((1 - menuProduct.price / menuProduct.oldPrice) * 100)
+              : 0;
+
+            const fullStarCharacterRender = "★".repeat(
+              Math.floor(menuProduct.rating),
+            );
+            const halfStarCharacterRender =
+              menuProduct.rating % 1 >= 0.5 ? "½" : "";
+            const finalStarRatingOutput = `${fullStarCharacterRender}${halfStarCharacterRender}`;
+
+            productCardHtmlElement.innerHTML = `
+              <div class="card-image relative h-48 sm:h-56 lg:h-64 overflow-hidden">
+                <img src="${menuProduct.image}" alt="${menuProduct.name}" class="w-full h-full object-cover">
+                ${menuProduct.popular ? `<div class="popular-badge absolute top-3 right-3 sm:top-4 sm:right-4 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center space-x-1 sm:space-x-1.5"><i class="fas fa-fire"></i><span>Mashhur</span></div>` : ""}
+                ${menuProduct.isNew ? `<div class="new-badge absolute top-3 right-3 sm:top-4 sm:right-4 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center space-x-1 sm:space-x-1.5"><i class="fas fa-sparkles"></i><span>Yangi</span></div>` : ""}
+                ${menuProduct.oldPrice ? `<div class="discount-badge absolute top-3 left-3 sm:top-4 sm:left-4 text-white px-2 sm:px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold">-${calculatedDiscountValue}%</div>` : ""}
+              </div>
+              <div class="p-4 sm:p-6 flex flex-col h-full">
+                <div class="mb-auto">
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-lg sm:text-xl font-bold font-playfair" style="color: var(--text)">${menuProduct.name}</h3>
+                    <div class="flex items-center space-x-1">
+                      <span class="stars text-xs sm:text-sm">${finalStarRatingOutput}</span>
+                      <span class="text-xs sm:text-sm font-bold text-yellow-500">${menuProduct.rating}</span>
+                    </div>
+                  </div>
+                  <p class="text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed" style="color: var(--text-secondary)">${menuProduct.description}</p>
+                </div>
+                <div class="mt-4">
+                  <div class="flex items-center justify-between mb-3 sm:mb-4">
+                    <div class="flex items-baseline space-x-2">
+                      <span class="text-xl sm:text-2xl font-bold text-rose-500">${menuProduct.price.toLocaleString()}</span>
+                      <span class="text-xs sm:text-sm" style="color: var(--text-secondary)">so'm</span>
+                      ${menuProduct.oldPrice ? `<span class="text-xs sm:text-sm line-through" style="color: var(--text-secondary)">${menuProduct.oldPrice.toLocaleString()}</span>` : ""}
+                    </div>
+                  </div>
+                  <button onclick="handleAddToCartEvent('${menuProduct.name.replace(/'/g, "\\'")}', ${menuProduct.price})" class="add-cart-btn text-white text-sm sm:text-base flex items-center justify-center space-x-2">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Savatga qo'shish</span>
+                  </button>
+                </div>
+              </div>
+            `;
+            restaurantMenuGridContainer.appendChild(productCardHtmlElement);
+          });
+        };
+
+        // Function exposed to window specifically handling the logic for item filtering
+        window.handleCategoryFilter = function (
+          targetCategoryReference,
+          activatedButtonDomElement,
+        ) {
+          // Reset styling for all menu filter buttons
+          categoryFilterButtonsList.forEach((navigationBtn) =>
+            navigationBtn.classList.remove("active"),
           );
-        }
+          // Assign active CSS styling properties to clicked button
+          activatedButtonDomElement.classList.add("active");
 
-        displayMenu(filteredItems);
-      }
+          let dynamicallyFilteredProducts;
+          if (targetCategoryReference === "all") {
+            dynamicallyFilteredProducts = restaurantMenuItemsCollection;
+          } else {
+            dynamicallyFilteredProducts = restaurantMenuItemsCollection.filter(
+              (specificItem) =>
+                specificItem.category === targetCategoryReference,
+            );
+          }
 
-      window.onload = function () {
-        displayMenu(menuItems);
-      };
+          renderRestaurantMenuItems(dynamicallyFilteredProducts);
+        };
+
+        // Function exposed to window designed to process cart modifications
+        window.handleAddToCartEvent = function (
+          selectedItemNameValue,
+          selectedItemPriceValue,
+        ) {
+          shoppingCartTotalItems++;
+
+          // Manipulate UI elements displaying cart item quantities
+          const applicationCartBadgeElement =
+            document.getElementById("cartBadge");
+          applicationCartBadgeElement.textContent = shoppingCartTotalItems;
+          applicationCartBadgeElement.classList.add("scale-125");
+          setTimeout(
+            () => applicationCartBadgeElement.classList.remove("scale-125"),
+            200,
+          );
+
+          // Configure toast notification textual elements and visual state
+          const uiToastNotificationWrapper = document.getElementById("toast");
+          const uiToastNotificationMessage =
+            document.getElementById("toastMessage");
+
+          uiToastNotificationMessage.textContent = `${selectedItemNameValue} - ${selectedItemPriceValue.toLocaleString()} so'm`;
+          uiToastNotificationWrapper.classList.remove("hidden");
+
+          // Initialize DOM animation state transition delays
+          setTimeout(
+            () =>
+              uiToastNotificationWrapper.classList.remove("translate-x-full"),
+            100,
+          );
+
+          setTimeout(() => {
+            uiToastNotificationWrapper.classList.add("translate-x-full");
+            setTimeout(
+              () => uiToastNotificationWrapper.classList.add("hidden"),
+              500,
+            );
+          }, 2500);
+        };
+
+        // Trigger foundational rendering routine upon initial script parsing completion
+        renderRestaurantMenuItems(restaurantMenuItemsCollection);
+      });
     </script>
   </body>
 </html>
