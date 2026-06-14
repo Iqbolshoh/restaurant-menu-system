@@ -1,18 +1,22 @@
 <!doctype html>
-<html lang="uz">
+<html lang="uz" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Restaurant - Online Menu</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Grand Restaurant - Premium Online Menu</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+      :root {
+        --primary: #8b0000;
+        --gold: #c9a84c;
+        --dark: #1a1a1a;
+      }
 
       .font-playfair {
         font-family: "Playfair Display", serif;
@@ -22,232 +26,351 @@
         font-family: "Inter", sans-serif;
       }
 
+      /* Premium Card Styles */
       .menu-card {
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+      }
+
+      .menu-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 24px;
+        padding: 1px;
+        background: linear-gradient(
+          135deg,
+          transparent 0%,
+          #c9a84c33 50%,
+          transparent 100%
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      .menu-card:hover::before {
+        opacity: 1;
       }
 
       .menu-card:hover {
-        transform: translateY(-12px);
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+        transform: translateY(-16px);
+        box-shadow:
+          0 40px 80px rgba(0, 0, 0, 0.2),
+          0 20px 40px rgba(139, 0, 0, 0.1);
       }
 
-      .menu-card:hover .card-image {
-        transform: scale(1.08);
+      .menu-card:hover .card-image img {
+        transform: scale(1.1) rotate(1deg);
       }
 
-      .category-btn {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      .card-image {
         position: relative;
         overflow: hidden;
+      }
+
+      .card-image::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 50%;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.7) 0%,
+          transparent 100%
+        );
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      .menu-card:hover .card-image::after {
+        opacity: 1;
+      }
+
+      /* Gold accent */
+      .gold-text {
+        background: linear-gradient(
+          135deg,
+          #c9a84c 0%,
+          #f4d03f 50%,
+          #c9a84c 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .gold-border {
+        border: 1px solid #c9a84c40;
+      }
+
+      /* Category Buttons */
+      .category-btn {
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+        overflow: hidden;
+        letter-spacing: 0.5px;
       }
 
       .category-btn::before {
         content: "";
         position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(239, 68, 68, 0.1);
-        transform: translate(-50%, -50%);
-        transition:
-          width 0.6s,
-          height 0.6s;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(201, 168, 76, 0.2),
+          transparent
+        );
+        transition: left 0.6s ease;
       }
 
       .category-btn:hover::before {
-        width: 300px;
-        height: 300px;
+        left: 100%;
       }
 
       .category-btn.active {
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        background: linear-gradient(
+          135deg,
+          #8b0000 0%,
+          #a00000 50%,
+          #8b0000 100%
+        );
         color: white;
-        box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+        box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+        border: 1px solid #c9a84c;
       }
 
-      .category-btn.active::before {
-        display: none;
+      /* Price Tag */
+      .price-tag {
+        position: relative;
+        background: linear-gradient(135deg, #8b0000 0%, #600000 100%);
+        color: #f4d03f;
+        font-weight: 800;
+        letter-spacing: -0.5px;
       }
 
-      .add-to-cart-btn {
-        transition: all 0.3s ease;
+      .price-tag::after {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(135deg, #c9a84c, #8b0000);
+        border-radius: inherit;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .menu-card:hover .price-tag::after {
+        opacity: 1;
+      }
+
+      /* Hero Pattern */
+      .hero-pattern {
+        background-color: #0a0a0a;
+        background-image:
+          radial-gradient(
+            circle at 20% 50%,
+            rgba(139, 0, 0, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 50%,
+            rgba(201, 168, 76, 0.1) 0%,
+            transparent 50%
+          ),
+          repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.01) 2px,
+            rgba(255, 255, 255, 0.01) 4px
+          );
+      }
+
+      /* Shine effect */
+      .shine {
         position: relative;
         overflow: hidden;
       }
 
-      .add-to-cart-btn::after {
+      .shine::after {
         content: "";
         position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: translate(-50%, -50%);
-        transition:
-          width 0.6s,
-          height 0.6s;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent 40%,
+          rgba(201, 168, 76, 0.1) 45%,
+          rgba(201, 168, 76, 0.2) 50%,
+          rgba(201, 168, 76, 0.1) 55%,
+          transparent 60%
+        );
+        animation: shine 3s infinite;
       }
 
-      .add-to-cart-btn:hover::after {
-        width: 300px;
-        height: 300px;
+      @keyframes shine {
+        0% {
+          transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+        100% {
+          transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
       }
 
-      .rating-badge {
-        backdrop-filter: blur(10px);
-        background: rgba(255, 255, 255, 0.85);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0a0a0a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c9a84c;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #f4d03f;
       }
 
-      .popular-badge {
-        animation: pulse 2s infinite;
+      /* Add to cart button */
+      .add-cart-btn {
+        position: relative;
+        overflow: hidden;
       }
 
-      @keyframes pulse {
+      .add-cart-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .add-cart-btn:hover::before {
+        left: 100%;
+      }
+
+      /* Badge */
+      .best-seller-badge {
+        background: linear-gradient(135deg, #c9a84c 0%, #f4d03f 100%);
+        color: #1a1a1a;
+        font-weight: 700;
+        box-shadow: 0 5px 20px rgba(201, 168, 76, 0.4);
+        animation: glow 2s ease-in-out infinite;
+      }
+
+      @keyframes glow {
         0%,
         100% {
-          transform: scale(1);
+          box-shadow: 0 5px 20px rgba(201, 168, 76, 0.4);
         }
         50% {
-          transform: scale(1.05);
+          box-shadow: 0 5px 30px rgba(201, 168, 76, 0.7);
         }
       }
 
-      .nav-link {
-        position: relative;
+      /* Quantity selector */
+      .quantity-btn {
+        transition: all 0.2s ease;
       }
 
-      .nav-link::after {
-        content: "";
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: #ef4444;
-        transition: width 0.3s ease;
-      }
-
-      .nav-link:hover::after {
-        width: 100%;
-      }
-
-      .hero-pattern {
-        background-image: radial-gradient(
-          circle at 1px 1px,
-          rgba(0, 0, 0, 0.1) 1px,
-          transparent 0
-        );
-        background-size: 40px 40px;
+      .quantity-btn:active {
+        transform: scale(0.9);
       }
     </style>
   </head>
-  <body
-    class="bg-gradient-to-br from-slate-50 via-amber-50/30 to-orange-50/50 min-h-screen font-inter"
-  >
-    <!-- Top Bar -->
-    <div class="bg-gradient-to-r from-red-600 to-red-700 text-white py-2">
-      <div
-        class="max-w-7xl mx-auto px-4 flex justify-between items-center text-sm"
-      >
-        <div class="flex items-center space-x-4">
-          <span class="flex items-center">
-            <i class="fas fa-phone mr-2"></i> +998 90 123 45 67
-          </span>
-          <span class="hidden sm:flex items-center">
-            <i class="fas fa-envelope mr-2"></i> info@restaurant.uz
-          </span>
-        </div>
-        <div class="flex items-center space-x-3">
-          <a href="#" class="hover:text-yellow-300 transition"
-            ><i class="fab fa-instagram"></i
-          ></a>
-          <a href="#" class="hover:text-yellow-300 transition"
-            ><i class="fab fa-telegram"></i
-          ></a>
-          <a href="#" class="hover:text-yellow-300 transition"
-            ><i class="fab fa-facebook"></i
-          ></a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Navigation Bar -->
+  <body class="bg-[#0a0a0a] font-inter text-gray-100">
+    <!-- Premium Navigation -->
     <nav
-      class="bg-white/90 backdrop-blur-xl shadow-lg sticky top-0 z-50 border-b border-gray-100"
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#0a0a0a]/95 backdrop-blur-xl border-b border-[#c9a84c]/20"
     >
-      <div class="max-w-7xl mx-auto px-4 py-4">
-        <div class="flex justify-between items-center">
-          <div class="flex items-center space-x-3">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between items-center h-20">
+          <div class="flex items-center space-x-4">
             <div
-              class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center shadow-lg"
+              class="w-12 h-12 bg-gradient-to-br from-[#8b0000] to-[#600000] rounded-lg flex items-center justify-center border border-[#c9a84c]/30 shadow-lg shadow-[#8b0000]/20"
             >
-              <i class="fas fa-utensils text-white text-xl"></i>
+              <i class="fas fa-crown text-[#f4d03f] text-lg"></i>
             </div>
             <div>
-              <h1
-                class="text-2xl font-bold font-playfair text-gray-800 leading-tight"
-              >
-                Restaurant
-              </h1>
-              <p class="text-xs text-gray-500">Fine Dining & Cuisine</p>
+              <h1 class="text-2xl font-bold font-playfair gold-text">Grand</h1>
+              <p class="text-[10px] uppercase tracking-[3px] text-gray-500">
+                Restaurant & Lounge
+              </p>
             </div>
           </div>
 
-          <div class="hidden lg:flex items-center space-x-8">
+          <div class="hidden lg:flex items-center space-x-10">
             <a
               href="#"
-              class="nav-link text-gray-700 hover:text-red-500 transition font-medium"
-              >Bosh sahifa</a
+              class="text-gray-400 hover:text-[#c9a84c] transition font-medium text-sm uppercase tracking-wider"
+              >Asosiy</a
             >
             <a
               href="#"
-              class="nav-link text-gray-700 hover:text-red-500 transition font-medium"
+              class="text-[#c9a84c] font-medium text-sm uppercase tracking-wider border-b border-[#c9a84c] pb-1"
               >Menu</a
             >
             <a
               href="#"
-              class="nav-link text-gray-700 hover:text-red-500 transition font-medium"
-              >Maxsus takliflar</a
+              class="text-gray-400 hover:text-[#c9a84c] transition font-medium text-sm uppercase tracking-wider"
+              >Maxsus</a
             >
             <a
               href="#"
-              class="nav-link text-gray-700 hover:text-red-500 transition font-medium"
-              >Biz haqimizda</a
+              class="text-gray-400 hover:text-[#c9a84c] transition font-medium text-sm uppercase tracking-wider"
+              >Haqida</a
             >
             <a
               href="#"
-              class="nav-link text-gray-700 hover:text-red-500 transition font-medium"
+              class="text-gray-400 hover:text-[#c9a84c] transition font-medium text-sm uppercase tracking-wider"
               >Aloqa</a
             >
           </div>
 
-          <div class="flex items-center space-x-4">
+          <div class="flex items-center space-x-5">
             <button
-              class="relative p-2 text-gray-700 hover:text-red-500 transition"
+              class="relative text-gray-400 hover:text-[#c9a84c] transition"
             >
               <i class="fas fa-search text-lg"></i>
             </button>
             <button
-              class="relative p-2 text-gray-700 hover:text-red-500 transition"
+              class="relative text-gray-400 hover:text-[#c9a84c] transition"
             >
-              <i class="fas fa-shopping-cart text-lg"></i>
+              <i class="fas fa-shopping-bag text-lg"></i>
               <span
-                class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center"
+                class="absolute -top-2 -right-2 bg-[#c9a84c] text-black text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold"
                 >0</span
               >
             </button>
             <button
-              class="bg-gradient-to-r from-red-500 to-red-700 text-white px-6 py-3 rounded-xl hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300 font-medium hidden md:block"
+              class="bg-gradient-to-r from-[#8b0000] to-[#a00000] text-[#f4d03f] px-6 py-2.5 rounded-lg font-semibold text-sm uppercase tracking-wider border border-[#c9a84c]/30 hover:shadow-lg hover:shadow-[#8b0000]/30 transition-all"
             >
-              <i class="fas fa-book-open mr-2"></i>Buyurtma berish
-            </button>
-            <button class="lg:hidden p-2 text-gray-700">
-              <i class="fas fa-bars text-2xl"></i>
+              Band qilish
             </button>
           </div>
         </div>
@@ -255,466 +378,515 @@
     </nav>
 
     <!-- Hero Section -->
-    <div
-      class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-red-900 text-white"
+    <section
+      class="relative min-h-screen flex items-center justify-center hero-pattern pt-20"
     >
-      <div class="absolute inset-0 hero-pattern opacity-10"></div>
-      <div class="max-w-7xl mx-auto px-4 pt-20 pb-24 text-center relative">
-        <div class="inline-block mb-6">
-          <span
-            class="bg-white/10 backdrop-blur-md px-6 py-3 rounded-full text-sm border border-white/20"
-          >
-            <i class="fas fa-star text-yellow-400 mr-2"></i>Yangi mavsumiy menu
-          </span>
-        </div>
-        <h1
-          class="text-5xl md:text-7xl font-bold font-playfair mb-6 leading-tight"
-        >
-          Ajoyib
-          <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400"
-            >Taomlar</span
-          ><br />Dunyosi
-        </h1>
-        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-          Eng sara mahsulotlardan tayyorlangan, professional oshpazlar tomonidan
-          tayyorlanadigan mazali taomlar
-        </p>
-        <div class="flex justify-center gap-4">
-          <button
-            class="bg-gradient-to-r from-red-500 to-red-700 px-8 py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300"
-          >
-            <i class="fas fa-utensils mr-2"></i>Menuni ko'rish
-          </button>
-          <button
-            class="bg-white/10 backdrop-blur-md px-8 py-4 rounded-xl font-semibold border border-white/20 hover:bg-white/20 transition-all duration-300"
-          >
-            <i class="fas fa-phone mr-2"></i>Stol band qilish
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Features Section -->
-    <div class="max-w-7xl mx-auto px-4 -mt-16 relative z-10">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div
-          class="bg-white rounded-2xl shadow-xl p-6 flex items-center space-x-4 hover:shadow-2xl transition"
-        >
-          <div
-            class="w-14 h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center flex-shrink-0"
-          >
-            <i class="fas fa-medal text-white text-xl"></i>
-          </div>
-          <div>
-            <h3 class="font-bold text-gray-800">Premium Sifat</h3>
-            <p class="text-sm text-gray-600">Eng sara mahsulotlar</p>
-          </div>
-        </div>
-        <div
-          class="bg-white rounded-2xl shadow-xl p-6 flex items-center space-x-4 hover:shadow-2xl transition"
-        >
-          <div
-            class="w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0"
-          >
-            <i class="fas fa-truck-fast text-white text-xl"></i>
-          </div>
-          <div>
-            <h3 class="font-bold text-gray-800">Tezkor Yetkazish</h3>
-            <p class="text-sm text-gray-600">30 daqiqada yetkazib berish</p>
-          </div>
-        </div>
-        <div
-          class="bg-white rounded-2xl shadow-xl p-6 flex items-center space-x-4 hover:shadow-2xl transition"
-        >
-          <div
-            class="w-14 h-14 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0"
-          >
-            <i class="fas fa-shield-check text-white text-xl"></i>
-          </div>
-          <div>
-            <h3 class="font-bold text-gray-800">100% Kafolat</h3>
-            <p class="text-sm text-gray-600">Sifat kafolati</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Menu Section Title -->
-    <div class="max-w-7xl mx-auto px-4 pt-20 pb-8">
-      <div class="text-center mb-12">
-        <span
-          class="text-red-500 font-semibold text-sm uppercase tracking-wider"
-          >Menu</span
-        >
-        <h2
-          class="text-4xl md:text-5xl font-bold font-playfair text-gray-800 mt-2 mb-4"
-        >
-          Bizning Maxsus Taomlar
-        </h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">
-          Har bir taom sevgi va ehtiros bilan tayyorlanadi. Eng yangi
-          mahsulotlar va professional oshpazlar qo'lidan chiqqan mazali taomlar
-        </p>
-        <div
-          class="w-20 h-1 bg-gradient-to-r from-red-500 to-orange-500 mx-auto mt-6"
-        ></div>
-      </div>
-    </div>
-
-    <!-- Category Filter Buttons -->
-    <div class="max-w-7xl mx-auto px-4 mb-12">
-      <div class="flex flex-wrap justify-center gap-3">
-        <button
-          onclick="filterCategory('all', this)"
-          class="category-btn active px-6 py-3 rounded-full bg-red-500 text-white font-semibold shadow-lg flex items-center space-x-2"
-        >
-          <i class="fas fa-border-all"></i>
-          <span>Barchasi</span>
-        </button>
-        <button
-          onclick="filterCategory('milliy', this)"
-          class="category-btn px-6 py-3 rounded-full bg-white text-gray-700 font-semibold shadow-lg hover:shadow-xl flex items-center space-x-2 border border-gray-200"
-        >
-          <i class="fas fa-flag"></i>
-          <span>Milliy taomlar</span>
-        </button>
-        <button
-          onclick="filterCategory('fastfood', this)"
-          class="category-btn px-6 py-3 rounded-full bg-white text-gray-700 font-semibold shadow-lg hover:shadow-xl flex items-center space-x-2 border border-gray-200"
-        >
-          <i class="fas fa-burger"></i>
-          <span>Fast Food</span>
-        </button>
-        <button
-          onclick="filterCategory('ichimliklar', this)"
-          class="category-btn px-6 py-3 rounded-full bg-white text-gray-700 font-semibold shadow-lg hover:shadow-xl flex items-center space-x-2 border border-gray-200"
-        >
-          <i class="fas fa-mug-hot"></i>
-          <span>Ichimliklar</span>
-        </button>
-        <button
-          onclick="filterCategory('shirinliklar', this)"
-          class="category-btn px-6 py-3 rounded-full bg-white text-gray-700 font-semibold shadow-lg hover:shadow-xl flex items-center space-x-2 border border-gray-200"
-        >
-          <i class="fas fa-cake-candles"></i>
-          <span>Shirinliklar</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Menu Grid -->
-    <div class="max-w-7xl mx-auto px-4 pb-20">
       <div
-        id="menuGrid"
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-      >
-        <!-- Menu items will be generated by JavaScript -->
+        class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/80 via-transparent to-[#0a0a0a]/80"
+      ></div>
+      <div class="max-w-7xl mx-auto px-6 text-center relative z-10 py-20">
+        <div
+          class="inline-flex items-center space-x-2 bg-white/5 backdrop-blur-xl border border-[#c9a84c]/20 rounded-full px-6 py-2.5 mb-8"
+        >
+          <i class="fas fa-star text-[#f4d03f] text-xs"></i>
+          <span
+            class="text-[#c9a84c] uppercase tracking-[3px] text-xs font-semibold"
+            >Premium Ovqatlanish Tajribasi</span
+          >
+        </div>
+
+        <h1
+          class="text-6xl md:text-8xl font-bold font-playfair mb-6 leading-none"
+        >
+          <span class="text-white">Ajoyib</span><br />
+          <span class="gold-text">Gastronomiya</span>
+        </h1>
+
+        <p
+          class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed"
+        >
+          Eng sara mahsulotlardan tayyorlangan, dunyo darajasidagi oshpazlar
+          tomonidan yaratilgan premium taomlar kolleksiyasi
+        </p>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <button
+            class="bg-gradient-to-r from-[#8b0000] to-[#a00000] text-[#f4d03f] px-10 py-4 rounded-lg font-bold text-sm uppercase tracking-wider border border-[#c9a84c]/30 hover:shadow-2xl hover:shadow-[#8b0000]/30 transition-all"
+          >
+            <i class="fas fa-book-open mr-3"></i>Menuni Ko'rish
+          </button>
+          <button
+            class="border border-[#c9a84c]/30 text-[#c9a84c] px-10 py-4 rounded-lg font-bold text-sm uppercase tracking-wider hover:bg-[#c9a84c]/10 transition-all"
+          >
+            <i class="fas fa-calendar-alt mr-3"></i>Stol Band Qilish
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div
+          class="grid grid-cols-3 gap-8 max-w-2xl mx-auto mt-20 pt-10 border-t border-[#c9a84c]/20"
+        >
+          <div>
+            <div class="text-3xl font-bold text-white mb-1">15+</div>
+            <div class="text-xs text-gray-500 uppercase tracking-wider">
+              Yillik Tajriba
+            </div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-white mb-1">50+</div>
+            <div class="text-xs text-gray-500 uppercase tracking-wider">
+              Maxsus Taomlar
+            </div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-white mb-1">10K+</div>
+            <div class="text-xs text-gray-500 uppercase tracking-wider">
+              Mamnun Mijozlar
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="py-24 bg-[#0d0d0d]">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center space-x-3 mb-6">
+            <div class="h-px w-12 bg-[#c9a84c]"></div>
+            <span
+              class="text-[#c9a84c] uppercase tracking-[4px] text-sm font-semibold"
+              >Premium Menu</span
+            >
+            <div class="h-px w-12 bg-[#c9a84c]"></div>
+          </div>
+          <h2
+            class="text-5xl md:text-6xl font-bold font-playfair text-white mb-4"
+          >
+            Bizning Maxsus
+            <span class="gold-text">Taomlarimiz</span>
+          </h2>
+          <p class="text-gray-500 max-w-2xl mx-auto text-lg font-light">
+            Har bir taom ehtiros va professionallik bilan tayyorlanadi
+          </p>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="flex flex-wrap justify-center gap-3 mb-16">
+          <button
+            onclick="filterCategory('all', this)"
+            class="category-btn active px-7 py-3 rounded-lg bg-[#8b0000] text-[#f4d03f] font-semibold text-sm uppercase tracking-wider border border-[#c9a84c]/40 flex items-center space-x-2"
+          >
+            <i class="fas fa-th-large text-xs"></i>
+            <span>Barchasi</span>
+          </button>
+          <button
+            onclick="filterCategory('milliy', this)"
+            class="category-btn px-7 py-3 rounded-lg bg-transparent text-gray-400 font-semibold text-sm uppercase tracking-wider border border-gray-800 hover:border-[#c9a84c]/40 flex items-center space-x-2"
+          >
+            <i class="fas fa-flag text-xs"></i>
+            <span>Milliy</span>
+          </button>
+          <button
+            onclick="filterCategory('fastfood', this)"
+            class="category-btn px-7 py-3 rounded-lg bg-transparent text-gray-400 font-semibold text-sm uppercase tracking-wider border border-gray-800 hover:border-[#c9a84c]/40 flex items-center space-x-2"
+          >
+            <i class="fas fa-burger text-xs"></i>
+            <span>Fast Food</span>
+          </button>
+          <button
+            onclick="filterCategory('ichimliklar', this)"
+            class="category-btn px-7 py-3 rounded-lg bg-transparent text-gray-400 font-semibold text-sm uppercase tracking-wider border border-gray-800 hover:border-[#c9a84c]/40 flex items-center space-x-2"
+          >
+            <i class="fas fa-wine-glass text-xs"></i>
+            <span>Ichimliklar</span>
+          </button>
+          <button
+            onclick="filterCategory('shirinliklar', this)"
+            class="category-btn px-7 py-3 rounded-lg bg-transparent text-gray-400 font-semibold text-sm uppercase tracking-wider border border-gray-800 hover:border-[#c9a84c]/40 flex items-center space-x-2"
+          >
+            <i class="fas fa-cake-candles text-xs"></i>
+            <span>Desert</span>
+          </button>
+        </div>
+
+        <!-- Menu Grid -->
+        <div
+          id="menuGrid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <!-- Generated by JS -->
+        </div>
+      </div>
+    </section>
 
     <!-- Footer -->
-    <footer
-      class="bg-gradient-to-br from-gray-900 to-gray-800 text-white pt-16 pb-8"
-    >
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <div>
+    <footer class="bg-[#080808] border-t border-[#c9a84c]/10 py-16">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+          <div class="col-span-1 md:col-span-1">
             <div class="flex items-center space-x-3 mb-6">
               <div
-                class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center"
+                class="w-10 h-10 bg-gradient-to-br from-[#8b0000] to-[#600000] rounded-lg flex items-center justify-center border border-[#c9a84c]/30"
               >
-                <i class="fas fa-utensils text-white text-xl"></i>
+                <i class="fas fa-crown text-[#f4d03f]"></i>
               </div>
-              <div>
-                <h3 class="text-xl font-bold font-playfair">Restaurant</h3>
-                <p class="text-xs text-gray-400">Fine Dining</p>
-              </div>
+              <h3 class="text-xl font-bold font-playfair gold-text">Grand</h3>
             </div>
-            <p class="text-gray-400 mb-6">
-              Eng zo'r taomlar, ajoyib xizmat ko'rsatish. Bizning restoranimizda
-              siz o'zingizni uydagidek his qilasiz.
+            <p class="text-gray-500 text-sm leading-relaxed">
+              Premium restaurant & lounge. Eng yuqori sifatli taomlar va ajoyib
+              atmosfera.
             </p>
-            <div class="flex space-x-3">
-              <a
-                href="#"
-                class="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center hover:bg-red-500 transition"
+          </div>
+          <div>
+            <h4
+              class="text-white font-bold mb-6 text-sm uppercase tracking-wider"
+            >
+              Havolalar
+            </h4>
+            <div class="space-y-3 text-gray-500 text-sm">
+              <a href="#" class="block hover:text-[#c9a84c] transition"
+                >Bosh sahifa</a
               >
-                <i class="fab fa-instagram"></i>
-              </a>
-              <a
-                href="#"
-                class="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center hover:bg-red-500 transition"
+              <a href="#" class="block hover:text-[#c9a84c] transition">Menu</a>
+              <a href="#" class="block hover:text-[#c9a84c] transition"
+                >Maxsus takliflar</a
               >
-                <i class="fab fa-telegram"></i>
-              </a>
-              <a
-                href="#"
-                class="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center hover:bg-red-500 transition"
+              <a href="#" class="block hover:text-[#c9a84c] transition"
+                >Biz haqimizda</a
               >
-                <i class="fab fa-facebook"></i>
-              </a>
             </div>
           </div>
-
           <div>
-            <h4 class="font-bold text-lg mb-6">Tezkor Havolalar</h4>
-            <ul class="space-y-3">
-              <li>
-                <a
-                  href="#"
-                  class="text-gray-400 hover:text-red-400 transition flex items-center"
-                  ><i class="fas fa-angle-right mr-2 text-xs"></i>Bosh sahifa</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="text-gray-400 hover:text-red-400 transition flex items-center"
-                  ><i class="fas fa-angle-right mr-2 text-xs"></i>Menu</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="text-gray-400 hover:text-red-400 transition flex items-center"
-                  ><i class="fas fa-angle-right mr-2 text-xs"></i>Biz
-                  haqimizda</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="text-gray-400 hover:text-red-400 transition flex items-center"
-                  ><i class="fas fa-angle-right mr-2 text-xs"></i>Maxsus
-                  takliflar</a
-                >
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 class="font-bold text-lg mb-6">Ish Vaqti</h4>
-            <ul class="space-y-3 text-gray-400">
-              <li class="flex justify-between">
+            <h4
+              class="text-white font-bold mb-6 text-sm uppercase tracking-wider"
+            >
+              Ish Vaqti
+            </h4>
+            <div class="space-y-3 text-gray-500 text-sm">
+              <div class="flex justify-between">
                 <span>Dushanba - Juma</span>
-                <span class="text-white font-semibold">10:00 - 23:00</span>
-              </li>
-              <li class="flex justify-between">
-                <span>Shanba</span>
-                <span class="text-white font-semibold">11:00 - 00:00</span>
-              </li>
-              <li class="flex justify-between">
-                <span>Yakshanba</span>
-                <span class="text-white font-semibold">11:00 - 22:00</span>
-              </li>
-            </ul>
+                <span class="text-[#c9a84c]">10:00 - 23:00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Shanba - Yakshanba</span>
+                <span class="text-[#c9a84c]">11:00 - 00:00</span>
+              </div>
+            </div>
           </div>
-
           <div>
-            <h4 class="font-bold text-lg mb-6">Aloqa</h4>
-            <ul class="space-y-4 text-gray-400">
-              <li class="flex items-start space-x-3">
-                <i class="fas fa-map-marker-alt mt-1 text-red-500"></i>
-                <span>Toshkent shahri, Amir Temur ko'chasi, 123-uy</span>
-              </li>
-              <li class="flex items-center space-x-3">
-                <i class="fas fa-phone text-red-500"></i>
+            <h4
+              class="text-white font-bold mb-6 text-sm uppercase tracking-wider"
+            >
+              Aloqa
+            </h4>
+            <div class="space-y-3 text-gray-500 text-sm">
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-map-marker-alt text-[#c9a84c]"></i>
+                <span>Toshkent, Amir Temur 123</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-phone text-[#c9a84c]"></i>
                 <span>+998 90 123 45 67</span>
-              </li>
-              <li class="flex items-center space-x-3">
-                <i class="fas fa-envelope text-red-500"></i>
-                <span>info@restaurant.uz</span>
-              </li>
-            </ul>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-envelope text-[#c9a84c]"></i>
+                <span>info@grandrestaurant.uz</span>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Restaurant. Barcha huquqlar himoyalangan.</p>
+        <div
+          class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-600 text-sm"
+        >
+          <p>&copy; 2024 Grand Restaurant. Barcha huquqlar himoyalangan.</p>
         </div>
       </div>
     </footer>
+
+    <!-- Cart Modal (hidden by default) -->
+    <div
+      id="cartToast"
+      class="fixed bottom-8 right-8 z-50 bg-[#1a1a1a] border border-[#c9a84c]/30 rounded-xl p-4 shadow-2xl transform translate-y-32 opacity-0 transition-all duration-500 hidden"
+    >
+      <div class="flex items-center space-x-3">
+        <div
+          class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center"
+        >
+          <i class="fas fa-check text-green-400"></i>
+        </div>
+        <div>
+          <p class="text-white text-sm font-semibold">Savatga qo'shildi!</p>
+          <p class="text-gray-400 text-xs" id="toastMessage"></p>
+        </div>
+      </div>
+    </div>
 
     <script>
       const menuItems = [
         {
           id: 1,
           name: "Osh",
-          description: "An'anaviy o'zbek oshi, qo'y go'shti va sabzi bilan",
-          price: 45000,
+          nameEng: "Plov",
+          description:
+            "Qo'y go'shti, za'faron, sabzi va guruchdan tayyorlangan an'anaviy o'zbek oshi",
+          price: 65000,
+          oldPrice: 75000,
           image:
-            "https://images.unsplash.com/photo-1590269003925-2a60b2409aaf?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1590269003925-2a60b2409aaf?w=500&h=400&fit=crop&q=80",
           category: "milliy",
-          rating: 4.8,
-          popular: true,
-          time: "30-40 daq",
+          rating: 4.9,
+          bestSeller: true,
+          calories: "680 kkal",
+          weight: "450g",
         },
         {
           id: 2,
           name: "Manti",
-          description: "Bug'da pishirilgan, qiyma go'shtli manti",
-          price: 35000,
+          nameEng: "Manti",
+          description:
+            "Bug'da pishirilgan, qiyma go'sht va piyozli, qaymoq bilan",
+          price: 45000,
           image:
-            "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1544025162-d76694265947?w=500&h=400&fit=crop&q=80",
           category: "milliy",
-          rating: 4.7,
-          popular: true,
-          time: "25-30 daq",
+          rating: 4.8,
+          bestSeller: true,
+          calories: "520 kkal",
+          weight: "350g",
         },
         {
           id: 3,
           name: "Sho'rva",
-          description: "Sabzavot va go'shtli mazali sho'rva",
-          price: 30000,
+          nameEng: "Shurpa",
+          description:
+            "Sabzavot va qo'y go'shtidan tayyorlangan boy mazali sho'rva",
+          price: 38000,
           image:
-            "https://images.unsplash.com/photo-1594756202469-9ff9799b2e4e?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1594756202469-9ff9799b2e4e?w=500&h=400&fit=crop&q=80",
           category: "milliy",
-          rating: 4.5,
-          popular: false,
-          time: "20-25 daq",
+          rating: 4.7,
+          bestSeller: false,
+          calories: "320 kkal",
+          weight: "500ml",
         },
         {
           id: 4,
           name: "Lavash",
-          description: "Go'sht, pishloq va sabzavotli lavash",
-          price: 25000,
+          nameEng: "Lavash Roll",
+          description:
+            "Yupqa lavash, go'sht, pishloq, pomidor va maxsus sous bilan",
+          price: 32000,
           image:
-            "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&h=400&fit=crop&q=80",
           category: "fastfood",
           rating: 4.6,
-          popular: true,
-          time: "15-20 daq",
+          bestSeller: false,
+          calories: "480 kkal",
+          weight: "300g",
         },
         {
           id: 5,
           name: "Gamburger",
-          description: "Maxsus sous va yangi sabzavotlar bilan",
-          price: 32000,
+          nameEng: "Classic Burger",
+          description:
+            "Angus mol go'shti, cheddar pishlog'i, yangi sabzavotlar",
+          price: 42000,
+          oldPrice: 50000,
           image:
-            "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&h=400&fit=crop&q=80",
           category: "fastfood",
-          rating: 4.4,
-          popular: false,
-          time: "15-20 daq",
+          rating: 4.5,
+          bestSeller: false,
+          calories: "750 kkal",
+          weight: "350g",
         },
         {
           id: 6,
           name: "Pizza",
-          description: "Pepperoni, qo'ziqorin va pishloqli pizza",
-          price: 55000,
+          nameEng: "Margherita Pizza",
+          description: "Italyancha yupqa pizza, mozzarella, pomidor va rayhon",
+          price: 58000,
           image:
-            "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&h=400&fit=crop&q=80",
           category: "fastfood",
           rating: 4.9,
-          popular: true,
-          time: "20-25 daq",
+          bestSeller: true,
+          calories: "890 kkal",
+          weight: "500g",
         },
         {
           id: 7,
           name: "Limonad",
-          description: "Uyda tayyorlangan yangi limonad",
-          price: 15000,
+          nameEng: "Fresh Lemonade",
+          description:
+            "Uyda tayyorlangan yangi limon, yalpiz va tabiiy asal bilan",
+          price: 18000,
           image:
-            "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=500&h=400&fit=crop&q=80",
           category: "ichimliklar",
-          rating: 4.3,
-          popular: false,
-          time: "5-10 daq",
+          rating: 4.4,
+          bestSeller: false,
+          calories: "120 kkal",
+          weight: "350ml",
         },
         {
           id: 8,
           name: "Moxito",
-          description: "Yalpiz va laym bilan yangi moxito",
-          price: 20000,
+          nameEng: "Mojito",
+          description: "Yangi yalpiz, laym, shakar qamish va soda bilan",
+          price: 25000,
           image:
-            "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=500&h=400&fit=crop&q=80",
           category: "ichimliklar",
-          rating: 4.6,
-          popular: true,
-          time: "5-10 daq",
+          rating: 4.7,
+          bestSeller: true,
+          calories: "160 kkal",
+          weight: "400ml",
         },
         {
           id: 9,
           name: "Choy",
-          description: "Ko'k choy, qora choy va mevali choylar",
-          price: 10000,
+          nameEng: "Premium Tea",
+          description: "Tanlangan ko'k va qora choy, asal va limon bilan",
+          price: 12000,
           image:
-            "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&h=400&fit=crop&q=80",
           category: "ichimliklar",
-          rating: 4.2,
-          popular: false,
-          time: "5 daq",
+          rating: 4.3,
+          bestSeller: false,
+          calories: "40 kkal",
+          weight: "500ml",
         },
         {
           id: 10,
           name: "Medovik",
-          description: "Bol va qaymoqli an'anaviy tort",
-          price: 28000,
+          nameEng: "Honey Cake",
+          description: "Yumshoq bol va qaymoqli qatlamli klassik desert",
+          price: 35000,
           image:
-            "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&h=400&fit=crop&q=80",
           category: "shirinliklar",
-          rating: 4.7,
-          popular: false,
-          time: "Mavjud",
+          rating: 4.8,
+          bestSeller: false,
+          calories: "420 kkal",
+          weight: "200g",
         },
         {
           id: 11,
           name: "Chizkeyk",
-          description: "Nyu-York uslubidagi klassik chizkeyk",
-          price: 32000,
+          nameEng: "Cheesecake",
+          description:
+            "Nyu-York uslubidagi qaymoqli chizkeyk, berry sousi bilan",
+          price: 42000,
           image:
-            "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500&h=400&fit=crop&q=80",
           category: "shirinliklar",
-          rating: 4.8,
-          popular: true,
-          time: "Mavjud",
+          rating: 4.9,
+          bestSeller: true,
+          calories: "480 kkal",
+          weight: "180g",
         },
         {
           id: 12,
           name: "Dondurma",
-          description: "Italyancha dondurma, turli xil ta'mlar",
-          price: 18000,
+          nameEng: "Gelato",
+          description: "Italyancha gelato, vanil, shokolad va pistachio",
+          price: 22000,
           image:
-            "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=400&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=500&h=400&fit=crop&q=80",
           category: "shirinliklar",
-          rating: 4.5,
-          popular: false,
-          time: "Mavjud",
+          rating: 4.6,
+          bestSeller: false,
+          calories: "280 kkal",
+          weight: "150g",
         },
       ];
+
+      let cartCount = 0;
 
       function displayMenu(items) {
         const menuGrid = document.getElementById("menuGrid");
         menuGrid.innerHTML = "";
 
+        if (items.length === 0) {
+          menuGrid.innerHTML = `
+            <div class="col-span-full text-center py-20">
+              <i class="fas fa-utensils text-6xl text-gray-800 mb-4"></i>
+              <p class="text-gray-600 text-lg">Bu kategoriyada hozircha taom yo'q</p>
+            </div>
+          `;
+          return;
+        }
+
         items.forEach((item) => {
           const card = document.createElement("div");
           card.className =
-            "menu-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100";
+            "menu-card bg-[#111] rounded-2xl overflow-hidden border border-gray-800/50 group";
           card.innerHTML = `
-            <div class="relative overflow-hidden group">
-              <img src="${item.image}" alt="${item.name}" class="card-image w-full h-56 object-cover transition duration-500">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
-              ${item.popular ? '<span class="popular-badge absolute top-4 right-4 bg-gradient-to-r from-red-500 to-red-700 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg flex items-center space-x-1"><i class="fas fa-fire text-yellow-300"></i><span>Mashhur</span></span>' : ""}
-              <div class="rating-badge absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1">
-                <i class="fas fa-star text-yellow-500"></i>
-                <span>${item.rating}</span>
-              </div>
-              <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition duration-300">
-                <i class="fas fa-clock text-gray-600"></i>
-                <span>${item.time}</span>
+            <div class="card-image relative h-64 overflow-hidden">
+              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+              
+              ${
+                item.bestSeller
+                  ? `
+                <div class="best-seller-badge absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5 z-10">
+                  <i class="fas fa-crown text-[#8b0000]"></i>
+                  <span class="text-[#1a1a1a]">Eng Zo'r</span>
+                </div>
+              `
+                  : ""
+              }
+              
+              ${
+                item.oldPrice
+                  ? `
+                <div class="absolute top-4 left-4 bg-red-600 text-white px-2.5 py-1 rounded-lg text-xs font-bold z-10">
+                  -${Math.round((1 - item.price / item.oldPrice) * 100)}%
+                </div>
+              `
+                  : ""
+              }
+              
+              <div class="absolute bottom-4 left-4 flex items-center space-x-2 z-10 opacity-0 group-hover:opacity-100 transition duration-300">
+                <span class="bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full text-xs text-white flex items-center space-x-1.5">
+                  <i class="fas fa-fire text-orange-400"></i>
+                  <span>${item.calories}</span>
+                </span>
+                <span class="bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full text-xs text-white flex items-center space-x-1.5">
+                  <i class="fas fa-weight-scale text-blue-400"></i>
+                  <span>${item.weight}</span>
+                </span>
               </div>
             </div>
+            
             <div class="p-6">
-              <div class="flex justify-between items-start mb-3">
-                <h3 class="text-xl font-bold text-gray-800 font-playfair">${item.name}</h3>
-                <span class="text-xl font-bold text-red-500">${item.price.toLocaleString()} <span class="text-sm">so'm</span></span>
+              <div class="flex items-center justify-between mb-3">
+                <div>
+                  <h3 class="text-xl font-bold text-white font-playfair">${item.name}</h3>
+                  <p class="text-xs text-gray-500 uppercase tracking-wider mt-0.5">${item.nameEng}</p>
+                </div>
+                <div class="flex items-center space-x-1 bg-[#c9a84c]/10 px-2.5 py-1 rounded-lg">
+                  <i class="fas fa-star text-[#f4d03f] text-xs"></i>
+                  <span class="text-[#c9a84c] text-sm font-bold">${item.rating}</span>
+                </div>
               </div>
-              <p class="text-gray-600 mb-6 text-sm leading-relaxed">${item.description}</p>
-              <button class="add-to-cart-btn w-full bg-gradient-to-r from-red-500 to-red-700 text-white py-3.5 rounded-xl font-semibold hover:shadow-lg hover:shadow-red-500/30 transition-all duration-300 flex items-center justify-center space-x-2">
-                <i class="fas fa-shopping-basket"></i>
-                <span>Savatga qo'shish</span>
+              
+              <p class="text-gray-500 text-sm mb-5 leading-relaxed line-clamp-2">${item.description}</p>
+              
+              <div class="flex items-center justify-between">
+                <div class="flex items-baseline space-x-2">
+                  <span class="price-tag text-2xl font-bold px-2 py-0.5 rounded-lg">${item.price.toLocaleString()}</span>
+                  <span class="text-gray-600 text-sm">so'm</span>
+                  ${item.oldPrice ? `<span class="text-gray-600 text-sm line-through">${item.oldPrice.toLocaleString()}</span>` : ""}
+                </div>
+              </div>
+              
+              <button onclick="addToCart('${item.name}', ${item.price})" class="add-cart-btn w-full mt-5 bg-gradient-to-r from-[#8b0000] to-[#a00000] hover:from-[#a00000] hover:to-[#c00000] text-[#f4d03f] py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider flex items-center justify-center space-x-2 border border-[#c9a84c]/20 transition-all">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Savatga Qo'shish</span>
+                <i class="fas fa-arrow-right text-xs"></i>
               </button>
             </div>
           `;
@@ -722,29 +894,57 @@
         });
       }
 
+      function addToCart(name, price) {
+        cartCount++;
+        const cartBadge = document.querySelector(".fa-shopping-bag + span");
+        if (cartBadge) {
+          cartBadge.textContent = cartCount;
+          cartBadge.classList.add("scale-125");
+          setTimeout(() => cartBadge.classList.remove("scale-125"), 200);
+        }
+
+        // Show toast
+        const toast = document.getElementById("cartToast");
+        const toastMessage = document.getElementById("toastMessage");
+        toastMessage.textContent = `${name} - ${price.toLocaleString()} so'm`;
+        toast.classList.remove("hidden");
+        setTimeout(() => {
+          toast.classList.remove("translate-y-32", "opacity-0");
+          toast.classList.add("translate-y-0", "opacity-100");
+        }, 100);
+
+        setTimeout(() => {
+          toast.classList.add("translate-y-32", "opacity-0");
+          setTimeout(() => toast.classList.add("hidden"), 500);
+        }, 2000);
+      }
+
       function filterCategory(category, buttonElement) {
         const buttons = document.querySelectorAll(".category-btn");
         buttons.forEach((btn) => {
           btn.classList.remove(
             "active",
-            "bg-red-500",
-            "text-white",
-            "border-0",
+            "bg-[#8b0000]",
+            "text-[#f4d03f]",
+            "border-[#c9a84c]/40",
           );
           btn.classList.add(
-            "bg-white",
-            "text-gray-700",
-            "border",
-            "border-gray-200",
+            "bg-transparent",
+            "text-gray-400",
+            "border-gray-800",
           );
         });
 
-        buttonElement.classList.add("active", "bg-red-500", "text-white");
+        buttonElement.classList.add(
+          "active",
+          "bg-[#8b0000]",
+          "text-[#f4d03f]",
+          "border-[#c9a84c]/40",
+        );
         buttonElement.classList.remove(
-          "bg-white",
-          "text-gray-700",
-          "border",
-          "border-gray-200",
+          "bg-transparent",
+          "text-gray-400",
+          "border-gray-800",
         );
 
         let filteredItems;
