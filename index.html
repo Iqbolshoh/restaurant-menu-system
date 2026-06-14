@@ -16,14 +16,6 @@
         --primary: #e11d48;
         --primary-light: #f43f5e;
         --accent: #06b6d4;
-        --bg-light: #fafaf9;
-        --bg-dark: #0f172a;
-        --text-light: #1e293b;
-        --text-dark: #f1f5f9;
-        --card-light: #ffffff;
-        --card-dark: #1e293b;
-        --border-light: #e2e8f0;
-        --border-dark: #334155;
       }
 
       .font-playfair {
@@ -42,45 +34,123 @@
       .light {
         --bg: #fafaf9;
         --bg-secondary: #f0f9ff;
+        --bg-tertiary: #fff1f2;
         --text: #1e293b;
         --text-secondary: #64748b;
+        --text-tertiary: #94a3b8;
         --card: #ffffff;
         --card-hover: #f8fafc;
         --border: #e2e8f0;
-        --nav-bg: rgba(255, 255, 255, 0.9);
+        --border-light: #f1f5f9;
+        --nav-bg: rgba(255, 255, 255, 0.95);
         --hero-bg: linear-gradient(
           135deg,
           #f0f9ff 0%,
           #fdf2f8 50%,
           #fff7ed 100%
         );
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
         --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.12);
+        --shadow-xl: 0 25px 70px rgba(0, 0, 0, 0.15);
+        --footer-bg: #1e293b;
+        --footer-text: #cbd5e1;
+        --footer-heading: #ffffff;
       }
 
       .dark {
         --bg: #0f172a;
         --bg-secondary: #1e293b;
+        --bg-tertiary: #1a1a2e;
         --text: #f1f5f9;
         --text-secondary: #94a3b8;
+        --text-tertiary: #64748b;
         --card: #1e293b;
         --card-hover: #334155;
         --border: #334155;
-        --nav-bg: rgba(15, 23, 42, 0.9);
+        --border-light: #1e293b;
+        --nav-bg: rgba(15, 23, 42, 0.95);
         --hero-bg: linear-gradient(
           135deg,
           #0f172a 0%,
           #1e1b4b 50%,
           #1a1a2e 100%
         );
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
         --shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.5);
+        --shadow-xl: 0 25px 70px rgba(0, 0, 0, 0.6);
+        --footer-bg: #0c1222;
+        --footer-text: #94a3b8;
+        --footer-heading: #f1f5f9;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
       }
 
       body {
         background: var(--bg);
         color: var(--text);
         transition: all 0.5s ease;
+        overflow-x: hidden;
+      }
+
+      /* Section Styles */
+      .section-full {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      /* Navigation */
+      nav {
+        background: var(--nav-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        transition: all 0.3s ease;
+        height: 80px;
+      }
+
+      nav.scrolled {
+        box-shadow: var(--shadow);
+        height: 70px;
+      }
+
+      /* Nav Links */
+      .nav-link {
+        position: relative;
+        transition: all 0.3s ease;
+        padding-bottom: 4px;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(to right, #e11d48, #f43f5e);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 100%;
+      }
+
+      .nav-link.active {
+        color: #e11d48;
       }
 
       /* Menu Card Styles */
@@ -89,12 +159,15 @@
         border: 1px solid var(--border);
         transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         box-shadow: var(--shadow);
+        border-radius: 24px;
+        overflow: hidden;
       }
 
       .menu-card:hover {
         transform: translateY(-12px);
         box-shadow: var(--shadow-hover);
         background: var(--card-hover);
+        border-color: #e11d4840;
       }
 
       .menu-card:hover .card-image img {
@@ -109,6 +182,9 @@
         border: 2px solid var(--border);
         font-weight: 600;
         letter-spacing: 0.3px;
+        border-radius: 50px;
+        padding: 10px 24px;
+        font-size: 14px;
       }
 
       .category-btn:hover {
@@ -132,6 +208,9 @@
         transition: all 0.4s ease;
         position: relative;
         overflow: hidden;
+        border-radius: 14px;
+        padding: 14px;
+        font-weight: 600;
       }
 
       .add-cart-btn:hover {
@@ -244,19 +323,13 @@
         transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
 
-      /* Nav Styles */
-      nav {
-        background: var(--nav-bg);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border);
-      }
-
       /* Toast Notification */
       .toast {
         background: var(--card);
         border: 2px solid #10b981;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         animation: slideIn 0.5s ease;
+        border-radius: 16px;
       }
 
       @keyframes slideIn {
@@ -267,6 +340,82 @@
         to {
           transform: translateX(0);
           opacity: 1;
+        }
+      }
+
+      /* Footer Styles */
+      footer {
+        background: var(--footer-bg);
+        color: var(--footer-text);
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-heading {
+        color: var(--footer-heading);
+        position: relative;
+        padding-bottom: 12px;
+        margin-bottom: 20px;
+      }
+
+      .footer-heading::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: linear-gradient(to right, #e11d48, #f43f5e);
+        border-radius: 2px;
+      }
+
+      .footer-link {
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .footer-link:hover {
+        color: #e11d48;
+        transform: translateX(5px);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu {
+        transform: translateX(100%);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .mobile-menu.open {
+        transform: translateX(0);
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .section-full {
+          min-height: auto;
+          padding: 100px 0 60px;
+        }
+
+        .menu-card {
+          border-radius: 20px;
+        }
+
+        .category-btn {
+          padding: 8px 18px;
+          font-size: 13px;
+        }
+
+        nav {
+          height: 70px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .menu-grid {
+          gap: 16px;
         }
       }
     </style>
@@ -281,105 +430,180 @@
   </head>
   <body class="font-inter">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex justify-between items-center h-20">
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-full">
+        <div class="flex justify-between items-center h-full">
           <!-- Logo -->
-          <div class="flex items-center space-x-3">
+          <a href="#home" class="flex items-center space-x-3 flex-shrink-0">
             <div
-              class="w-12 h-12 bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg shadow-rose-500/20"
+              class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg shadow-rose-500/20"
             >
-              <i class="fas fa-utensils text-white text-xl"></i>
+              <i class="fas fa-utensils text-white text-lg sm:text-xl"></i>
             </div>
             <div>
               <h1
-                class="text-2xl font-bold font-playfair"
+                class="text-xl sm:text-2xl font-bold font-playfair"
                 style="color: var(--text)"
               >
                 Gusto
               </h1>
-              <p class="text-xs font-dancing text-rose-500">
+              <p class="text-[10px] sm:text-xs font-dancing text-rose-500">
                 Italian Restaurant
               </p>
             </div>
-          </div>
+          </a>
 
-          <!-- Nav Links -->
-          <div class="hidden lg:flex items-center space-x-8">
+          <!-- Desktop Nav Links -->
+          <div class="hidden lg:flex items-center space-x-6 xl:space-x-8">
             <a
-              href="#"
-              class="text-rose-500 font-semibold text-sm uppercase tracking-wider"
+              href="#home"
+              class="nav-link active text-rose-500 font-semibold text-sm uppercase tracking-wider"
+              >Bosh sahifa</a
+            >
+            <a
+              href="#menu"
+              class="nav-link hover:text-rose-500 transition font-medium text-sm uppercase tracking-wider"
+              style="color: var(--text-secondary)"
               >Menu</a
             >
             <a
-              href="#"
-              class="hover:text-rose-500 transition font-medium text-sm uppercase tracking-wider"
+              href="#special"
+              class="nav-link hover:text-rose-500 transition font-medium text-sm uppercase tracking-wider"
               style="color: var(--text-secondary)"
               >Maxsus</a
             >
             <a
-              href="#"
-              class="hover:text-rose-500 transition font-medium text-sm uppercase tracking-wider"
+              href="#about"
+              class="nav-link hover:text-rose-500 transition font-medium text-sm uppercase tracking-wider"
               style="color: var(--text-secondary)"
               >Haqida</a
             >
             <a
-              href="#"
-              class="hover:text-rose-500 transition font-medium text-sm uppercase tracking-wider"
+              href="#contact"
+              class="nav-link hover:text-rose-500 transition font-medium text-sm uppercase tracking-wider"
               style="color: var(--text-secondary)"
               >Aloqa</a
             >
           </div>
 
           <!-- Actions -->
-          <div class="flex items-center space-x-4">
+          <div class="flex items-center space-x-2 sm:space-x-4">
             <!-- Theme Toggle -->
-            <div class="theme-toggle" onclick="toggleTheme()">
+            <div
+              class="theme-toggle flex-shrink-0"
+              onclick="toggleTheme()"
+              title="Dark/Light mode"
+            >
               <div class="theme-toggle-circle">
-                <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                <i class="fas fa-sun text-yellow-500"></i>
                 <i class="fas fa-moon text-blue-400 hidden dark:block"></i>
               </div>
             </div>
 
             <!-- Cart -->
-            <button class="relative" style="color: var(--text)">
-              <i class="fas fa-shopping-bag text-xl"></i>
+            <button
+              class="relative flex-shrink-0 p-2"
+              style="color: var(--text)"
+              title="Savat"
+            >
+              <i class="fas fa-shopping-bag text-lg sm:text-xl"></i>
               <span
                 id="cartBadge"
-                class="absolute -top-2 -right-2 bg-rose-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold"
+                class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] sm:text-xs w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center font-bold"
                 >0</span
               >
             </button>
 
             <!-- Order Button -->
-            <button
-              class="hidden md:block bg-gradient-to-r from-rose-500 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:shadow-lg hover:shadow-rose-500/25 transition-all"
+            <a
+              href="#contact"
+              class="hidden md:block bg-gradient-to-r from-rose-500 to-pink-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-xs sm:text-sm hover:shadow-lg hover:shadow-rose-500/25 transition-all whitespace-nowrap"
             >
-              <i class="fas fa-phone mr-2"></i>Buyurtma
-            </button>
+              <i class="fas fa-phone mr-1 sm:mr-2"></i>Buyurtma
+            </a>
 
-            <!-- Mobile Menu -->
-            <button class="lg:hidden" style="color: var(--text)">
-              <i class="fas fa-bars text-2xl"></i>
+            <!-- Mobile Menu Toggle -->
+            <button
+              id="mobileMenuBtn"
+              class="lg:hidden p-2 flex-shrink-0"
+              style="color: var(--text)"
+              title="Menu"
+            >
+              <i class="fas fa-bars text-xl sm:text-2xl"></i>
             </button>
           </div>
         </div>
       </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-20" style="background: var(--hero-bg)">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <!-- Mobile Menu Overlay -->
+    <div
+      id="mobileMenu"
+      class="mobile-menu fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
+      style="display: none"
+    >
+      <div
+        class="absolute right-0 top-0 h-full w-80 max-w-[85vw] p-6 pt-24"
+        style="background: var(--card)"
+      >
+        <button
+          id="closeMobileMenu"
+          class="absolute top-6 right-6 p-2"
+          style="color: var(--text)"
+        >
+          <i class="fas fa-times text-2xl"></i>
+        </button>
+        <div class="flex flex-col space-y-6">
+          <a
+            href="#home"
+            class="mobile-nav-link text-lg font-semibold text-rose-500"
+            >Bosh sahifa</a
+          >
+          <a
+            href="#menu"
+            class="mobile-nav-link text-lg font-medium"
+            style="color: var(--text)"
+            >Menu</a
+          >
+          <a
+            href="#special"
+            class="mobile-nav-link text-lg font-medium"
+            style="color: var(--text)"
+            >Maxsus</a
+          >
+          <a
+            href="#about"
+            class="mobile-nav-link text-lg font-medium"
+            style="color: var(--text)"
+            >Haqida</a
+          >
+          <a
+            href="#contact"
+            class="mobile-nav-link text-lg font-medium"
+            style="color: var(--text)"
+            >Aloqa</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section (100vh) -->
+    <section
+      id="home"
+      class="section-full"
+      style="background: var(--hero-bg); padding-top: 80px"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div class="text-center lg:text-left">
             <span
-              class="inline-block bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 px-4 py-2 rounded-full text-sm font-semibold mb-6"
+              class="inline-block bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold mb-4 sm:mb-6"
             >
-              <i class="fas fa-star mr-2"></i>Premium Menu 2026
+              <i class="fas fa-star mr-1 sm:mr-2"></i>Premium Menu 2026
             </span>
 
             <h1
-              class="text-5xl md:text-7xl font-bold font-playfair mb-6 leading-tight"
+              class="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-playfair mb-4 sm:mb-6 leading-tight"
               style="color: var(--text)"
             >
               Mazali
@@ -387,56 +611,70 @@
                 class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-600"
                 >Taomlar</span
               ><br />
-              <span class="font-dancing text-rose-500">San'ati</span>
+              <span
+                class="font-dancing text-rose-500 text-3xl sm:text-4xl md:text-5xl"
+                >San'ati</span
+              >
             </h1>
 
-            <p class="text-lg mb-8" style="color: var(--text-secondary)">
+            <p
+              class="text-sm sm:text-base lg:text-lg mb-6 sm:mb-8"
+              style="color: var(--text-secondary)"
+            >
               Professional oshpazlar jamoasi tomonidan eng sara mahsulotlardan
               tayyorlanadigan ajoyib taomlar kolleksiyasi
             </p>
 
             <div
-              class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
             >
-              <button
-                class="bg-gradient-to-r from-rose-500 to-pink-600 text-white px-8 py-4 rounded-xl font-bold hover:shadow-xl hover:shadow-rose-500/25 transition-all"
+              <a
+                href="#menu"
+                class="bg-gradient-to-r from-rose-500 to-pink-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-base hover:shadow-xl hover:shadow-rose-500/25 transition-all"
               >
                 <i class="fas fa-book-open mr-2"></i>Menuni Ko'rish
-              </button>
-              <button
-                class="border-2 border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-400 px-8 py-4 rounded-xl font-bold hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-all"
+              </a>
+              <a
+                href="#contact"
+                class="border-2 border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-400 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-base hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-all"
               >
                 <i class="fas fa-calendar-alt mr-2"></i>Stol Band Qilish
-              </button>
+              </a>
             </div>
 
             <!-- Quick Stats -->
             <div
-              class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t"
+              class="grid grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12 pt-6 sm:pt-8 border-t"
               style="border-color: var(--border)"
             >
               <div>
-                <div class="text-3xl font-bold text-rose-500 mb-1">50+</div>
+                <div class="text-2xl sm:text-3xl font-bold text-rose-500 mb-1">
+                  50+
+                </div>
                 <div
-                  class="text-xs uppercase tracking-wider"
+                  class="text-[10px] sm:text-xs uppercase tracking-wider"
                   style="color: var(--text-secondary)"
                 >
                   Maxsus Taomlar
                 </div>
               </div>
               <div>
-                <div class="text-3xl font-bold text-rose-500 mb-1">15</div>
+                <div class="text-2xl sm:text-3xl font-bold text-rose-500 mb-1">
+                  15
+                </div>
                 <div
-                  class="text-xs uppercase tracking-wider"
+                  class="text-[10px] sm:text-xs uppercase tracking-wider"
                   style="color: var(--text-secondary)"
                 >
                   Yillik Tajriba
                 </div>
               </div>
               <div>
-                <div class="text-3xl font-bold text-rose-500 mb-1">10K+</div>
+                <div class="text-2xl sm:text-3xl font-bold text-rose-500 mb-1">
+                  10K+
+                </div>
                 <div
-                  class="text-xs uppercase tracking-wider"
+                  class="text-[10px] sm:text-xs uppercase tracking-wider"
                   style="color: var(--text-secondary)"
                 >
                   Mamnun Mijoz
@@ -451,21 +689,27 @@
               <img
                 src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=600&fit=crop&q=80"
                 alt="Hero Dish"
-                class="w-full h-[500px] object-cover rounded-3xl shadow-2xl"
+                class="w-full h-[400px] xl:h-[500px] object-cover rounded-3xl shadow-2xl"
               />
               <div
-                class="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-4 flex items-center space-x-3"
+                class="absolute -bottom-4 -left-4 xl:-bottom-6 xl:-left-6 bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-3 sm:p-4 flex items-center space-x-3"
               >
                 <div
-                  class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center"
+                  class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center"
                 >
-                  <i class="fas fa-check text-green-500 text-xl"></i>
+                  <i class="fas fa-check text-green-500 text-lg sm:text-xl"></i>
                 </div>
                 <div>
-                  <div class="font-bold text-sm" style="color: var(--text)">
+                  <div
+                    class="font-bold text-xs sm:text-sm"
+                    style="color: var(--text)"
+                  >
                     Premium Sifat
                   </div>
-                  <div class="text-xs" style="color: var(--text-secondary)">
+                  <div
+                    class="text-[10px] sm:text-xs"
+                    style="color: var(--text-secondary)"
+                  >
                     100% tabiiy mahsulotlar
                   </div>
                 </div>
@@ -476,17 +720,17 @@
       </div>
     </section>
 
-    <!-- Menu Section -->
-    <section class="py-20" style="background: var(--bg)">
-      <div class="max-w-7xl mx-auto px-6">
+    <!-- Menu Section (100vh) -->
+    <section id="menu" class="section-full" style="background: var(--bg)">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
         <!-- Section Header -->
-        <div class="text-center mb-16">
+        <div class="text-center mb-8 sm:mb-12 lg:mb-16">
           <span
-            class="text-rose-500 font-semibold text-sm uppercase tracking-wider"
+            class="text-rose-500 font-semibold text-xs sm:text-sm uppercase tracking-wider"
             >Menu</span
           >
           <h2
-            class="text-4xl md:text-5xl font-bold font-playfair mt-2 mb-4"
+            class="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair mt-2 mb-3 sm:mb-4"
             style="color: var(--text)"
           >
             Bizning
@@ -495,48 +739,49 @@
               >Maxsus Taomlar</span
             >
           </h2>
-          <p class="max-w-2xl mx-auto" style="color: var(--text-secondary)">
-            Har bir taom ehtiros va professionallik bilan tayyorlanadi. Eng
-            yangi mahsulotlar va professional oshpazlar qo'lidan chiqqan mazali
-            taomlar
+          <p
+            class="max-w-2xl mx-auto text-sm sm:text-base"
+            style="color: var(--text-secondary)"
+          >
+            Har bir taom ehtiros va professionallik bilan tayyorlanadi
           </p>
         </div>
 
         <!-- Category Filter -->
-        <div class="flex flex-wrap justify-center gap-3 mb-12">
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12">
           <button
             onclick="filterCategory('all', this)"
-            class="category-btn active px-6 py-3 rounded-full flex items-center space-x-2"
+            class="category-btn active flex items-center space-x-1 sm:space-x-2"
           >
-            <i class="fas fa-th-large"></i>
+            <i class="fas fa-th-large text-xs sm:text-sm"></i>
             <span>Barchasi</span>
           </button>
           <button
             onclick="filterCategory('milliy', this)"
-            class="category-btn px-6 py-3 rounded-full flex items-center space-x-2"
+            class="category-btn flex items-center space-x-1 sm:space-x-2"
           >
-            <i class="fas fa-utensils"></i>
+            <i class="fas fa-utensils text-xs sm:text-sm"></i>
             <span>Milliy</span>
           </button>
           <button
             onclick="filterCategory('fastfood', this)"
-            class="category-btn px-6 py-3 rounded-full flex items-center space-x-2"
+            class="category-btn flex items-center space-x-1 sm:space-x-2"
           >
-            <i class="fas fa-burger"></i>
+            <i class="fas fa-burger text-xs sm:text-sm"></i>
             <span>Fast Food</span>
           </button>
           <button
             onclick="filterCategory('ichimliklar', this)"
-            class="category-btn px-6 py-3 rounded-full flex items-center space-x-2"
+            class="category-btn flex items-center space-x-1 sm:space-x-2"
           >
-            <i class="fas fa-mug-hot"></i>
+            <i class="fas fa-mug-hot text-xs sm:text-sm"></i>
             <span>Ichimliklar</span>
           </button>
           <button
             onclick="filterCategory('shirinliklar', this)"
-            class="category-btn px-6 py-3 rounded-full flex items-center space-x-2"
+            class="category-btn flex items-center space-x-1 sm:space-x-2"
           >
-            <i class="fas fa-cake-candles"></i>
+            <i class="fas fa-cake-candles text-xs sm:text-sm"></i>
             <span>Shirinliklar</span>
           </button>
         </div>
@@ -544,62 +789,112 @@
         <!-- Menu Grid -->
         <div
           id="menuGrid"
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
         >
           <!-- Generated by JS -->
         </div>
       </div>
     </section>
 
-    <!-- Features -->
-    <section class="py-20" style="background: var(--bg-secondary)">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Special Section (100vh) -->
+    <section
+      id="special"
+      class="section-full"
+      style="background: var(--bg-secondary)"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full text-center">
+        <span
+          class="text-rose-500 font-semibold text-xs sm:text-sm uppercase tracking-wider"
+          >Maxsus Takliflar</span
+        >
+        <h2
+          class="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair mt-2 mb-4"
+          style="color: var(--text)"
+        >
+          Bugungi
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-600"
+            >Chegirmalar</span
+          >
+        </h2>
+        <p
+          class="max-w-2xl mx-auto mb-8 sm:mb-12 text-sm sm:text-base"
+          style="color: var(--text-secondary)"
+        >
+          Har kuni yangi maxsus takliflar va ajoyib chegirmalar
+        </p>
+
+        <!-- Features Grid -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
+        >
           <div
-            class="text-center p-8 rounded-2xl"
-            style="background: var(--card)"
+            class="p-6 sm:p-8 rounded-2xl"
+            style="background: var(--card); border: 1px solid var(--border)"
           >
             <div
-              class="w-16 h-16 bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4"
             >
-              <i class="fas fa-medal text-rose-500 text-2xl"></i>
+              <i class="fas fa-medal text-rose-500 text-xl sm:text-2xl"></i>
             </div>
-            <h3 class="text-xl font-bold mb-2" style="color: var(--text)">
+            <h3
+              class="text-lg sm:text-xl font-bold mb-2"
+              style="color: var(--text)"
+            >
               Premium Sifat
             </h3>
-            <p style="color: var(--text-secondary)">
+            <p
+              class="text-sm sm:text-base"
+              style="color: var(--text-secondary)"
+            >
               Eng sara va yangi mahsulotlardan tayyorlanadi
             </p>
           </div>
           <div
-            class="text-center p-8 rounded-2xl"
-            style="background: var(--card)"
+            class="p-6 sm:p-8 rounded-2xl"
+            style="background: var(--card); border: 1px solid var(--border)"
           >
             <div
-              class="w-16 h-16 bg-gradient-to-br from-cyan-100 to-blue-100 dark:from-cyan-900/30 dark:to-blue-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-cyan-100 to-blue-100 dark:from-cyan-900/30 dark:to-blue-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4"
             >
-              <i class="fas fa-truck-fast text-cyan-500 text-2xl"></i>
+              <i
+                class="fas fa-truck-fast text-cyan-500 text-xl sm:text-2xl"
+              ></i>
             </div>
-            <h3 class="text-xl font-bold mb-2" style="color: var(--text)">
+            <h3
+              class="text-lg sm:text-xl font-bold mb-2"
+              style="color: var(--text)"
+            >
               Tezkor Yetkazish
             </h3>
-            <p style="color: var(--text-secondary)">
+            <p
+              class="text-sm sm:text-base"
+              style="color: var(--text-secondary)"
+            >
               30-40 daqiqa ichida manzilingizga yetkaziladi
             </p>
           </div>
           <div
-            class="text-center p-8 rounded-2xl"
-            style="background: var(--card)"
+            class="p-6 sm:p-8 rounded-2xl sm:col-span-2 lg:col-span-1"
+            style="background: var(--card); border: 1px solid var(--border)"
           >
             <div
-              class="w-16 h-16 bg-gradient-to-br from-purple-100 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-purple-100 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4"
             >
-              <i class="fas fa-shield-check text-purple-500 text-2xl"></i>
+              <i
+                class="fas fa-shield-check text-purple-500 text-xl sm:text-2xl"
+              ></i>
             </div>
-            <h3 class="text-xl font-bold mb-2" style="color: var(--text)">
+            <h3
+              class="text-lg sm:text-xl font-bold mb-2"
+              style="color: var(--text)"
+            >
               100% Kafolat
             </h3>
-            <p style="color: var(--text-secondary)">
+            <p
+              class="text-sm sm:text-base"
+              style="color: var(--text-secondary)"
+            >
               Sifat va tozalik kafolatlangan
             </p>
           </div>
@@ -607,10 +902,153 @@
       </div>
     </section>
 
+    <!-- About Section (100vh) -->
+    <section id="about" class="section-full" style="background: var(--bg)">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+        <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div>
+            <span
+              class="text-rose-500 font-semibold text-xs sm:text-sm uppercase tracking-wider"
+              >Biz Haqimizda</span
+            >
+            <h2
+              class="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair mt-2 mb-4 sm:mb-6"
+              style="color: var(--text)"
+            >
+              Gusto
+              <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-600"
+                >Restaurant</span
+              >
+            </h2>
+            <p
+              class="text-sm sm:text-base mb-4 sm:mb-6"
+              style="color: var(--text-secondary)"
+            >
+              15 yillik tajribaga ega bo'lgan restoranimiz O'zbekistonning eng
+              yaxshi taomlarini tayyorlaydi. Professional oshpazlar jamoasi va
+              sifatli mahsulotlar bilan biz mijozlarimizga unutilmas gastronomik
+              tajriba taqdim etamiz.
+            </p>
+            <div class="space-y-3 sm:space-y-4">
+              <div class="flex items-center space-x-3">
+                <i
+                  class="fas fa-check-circle text-green-500 text-lg sm:text-xl"
+                ></i>
+                <span class="text-sm sm:text-base" style="color: var(--text)"
+                  >Professional oshpazlar jamoasi</span
+                >
+              </div>
+              <div class="flex items-center space-x-3">
+                <i
+                  class="fas fa-check-circle text-green-500 text-lg sm:text-xl"
+                ></i>
+                <span class="text-sm sm:text-base" style="color: var(--text)"
+                  >100% tabiiy mahsulotlar</span
+                >
+              </div>
+              <div class="flex items-center space-x-3">
+                <i
+                  class="fas fa-check-circle text-green-500 text-lg sm:text-xl"
+                ></i>
+                <span class="text-sm sm:text-base" style="color: var(--text)"
+                  >Zamonaviy va qulay muhit</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="relative">
+            <img
+              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop&q=80"
+              alt="Restaurant Interior"
+              class="w-full h-[300px] sm:h-[400px] object-cover rounded-3xl shadow-2xl"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section (100vh) -->
+    <section
+      id="contact"
+      class="section-full"
+      style="background: var(--bg-secondary)"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full text-center">
+        <span
+          class="text-rose-500 font-semibold text-xs sm:text-sm uppercase tracking-wider"
+          >Aloqa</span
+        >
+        <h2
+          class="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair mt-2 mb-4"
+          style="color: var(--text)"
+        >
+          Biz Bilan
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-600"
+            >Bog'laning</span
+          >
+        </h2>
+        <p
+          class="max-w-2xl mx-auto mb-8 sm:mb-12 text-sm sm:text-base"
+          style="color: var(--text-secondary)"
+        >
+          Stol band qilish yoki yetkazib berish uchun biz bilan bog'laning
+        </p>
+
+        <div
+          class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto"
+        >
+          <div
+            class="p-6 rounded-2xl"
+            style="background: var(--card); border: 1px solid var(--border)"
+          >
+            <i class="fas fa-phone text-rose-500 text-2xl sm:text-3xl mb-3"></i>
+            <h3 class="font-bold text-lg mb-2" style="color: var(--text)">
+              Telefon
+            </h3>
+            <p class="text-sm" style="color: var(--text-secondary)">
+              +998 90 123 45 67
+            </p>
+          </div>
+          <div
+            class="p-6 rounded-2xl"
+            style="background: var(--card); border: 1px solid var(--border)"
+          >
+            <i
+              class="fas fa-envelope text-rose-500 text-2xl sm:text-3xl mb-3"
+            ></i>
+            <h3 class="font-bold text-lg mb-2" style="color: var(--text)">
+              Email
+            </h3>
+            <p class="text-sm" style="color: var(--text-secondary)">
+              info@gustorestaurant.uz
+            </p>
+          </div>
+          <div
+            class="p-6 rounded-2xl sm:col-span-2 lg:col-span-1"
+            style="background: var(--card); border: 1px solid var(--border)"
+          >
+            <i
+              class="fas fa-map-marker-alt text-rose-500 text-2xl sm:text-3xl mb-3"
+            ></i>
+            <h3 class="font-bold text-lg mb-2" style="color: var(--text)">
+              Manzil
+            </h3>
+            <p class="text-sm" style="color: var(--text-secondary)">
+              Toshkent sh., Amir Temur ko'chasi, 123
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="py-16" style="background: var(--card)">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10"
+        >
           <div>
             <div class="flex items-center space-x-3 mb-6">
               <div
@@ -620,58 +1058,84 @@
               </div>
               <h3
                 class="text-xl font-bold font-playfair"
-                style="color: var(--text)"
+                style="color: var(--footer-heading)"
               >
                 Gusto
               </h3>
             </div>
-            <p class="text-sm" style="color: var(--text-secondary)">
+            <p class="text-sm leading-relaxed">
               Premium restaurant. Eng yuqori sifatli taomlar va ajoyib
               atmosfera.
             </p>
           </div>
           <div>
-            <h4 class="font-bold mb-4" style="color: var(--text)">Havolalar</h4>
-            <div class="space-y-2 text-sm" style="color: var(--text-secondary)">
-              <a href="#" class="block hover:text-rose-500 transition"
-                >Bosh sahifa</a
-              >
-              <a href="#" class="block hover:text-rose-500 transition">Menu</a>
-              <a href="#" class="block hover:text-rose-500 transition"
-                >Maxsus takliflar</a
-              >
+            <h4 class="footer-heading font-bold text-lg">Havolalar</h4>
+            <div class="space-y-2 text-sm">
+              <a href="#home" class="footer-link block">Bosh sahifa</a>
+              <a href="#menu" class="footer-link block">Menu</a>
+              <a href="#special" class="footer-link block">Maxsus takliflar</a>
+              <a href="#about" class="footer-link block">Biz haqimizda</a>
+              <a href="#contact" class="footer-link block">Aloqa</a>
             </div>
           </div>
           <div>
-            <h4 class="font-bold mb-4" style="color: var(--text)">Ish Vaqti</h4>
-            <div class="space-y-2 text-sm" style="color: var(--text-secondary)">
+            <h4 class="footer-heading font-bold text-lg">Ish Vaqti</h4>
+            <div class="space-y-2 text-sm">
               <div class="flex justify-between">
                 <span>Dushanba - Juma</span>
-                <span class="text-rose-500 font-semibold">10:00 - 23:00</span>
+                <span class="text-rose-400 font-semibold">10:00 - 23:00</span>
               </div>
               <div class="flex justify-between">
-                <span>Shanba - Yakshanba</span>
-                <span class="text-rose-500 font-semibold">11:00 - 00:00</span>
+                <span>Shanba</span>
+                <span class="text-rose-400 font-semibold">11:00 - 00:00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Yakshanba</span>
+                <span class="text-rose-400 font-semibold">11:00 - 22:00</span>
               </div>
             </div>
           </div>
           <div>
-            <h4 class="font-bold mb-4" style="color: var(--text)">Aloqa</h4>
-            <div class="space-y-3 text-sm" style="color: var(--text-secondary)">
-              <div class="flex items-center space-x-2">
-                <i class="fas fa-map-marker-alt text-rose-500"></i>
-                <span>Toshkent, Amir Temur 123</span>
+            <h4 class="footer-heading font-bold text-lg">Aloqa</h4>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start space-x-3">
+                <i class="fas fa-map-marker-alt text-rose-500 mt-1"></i>
+                <span>Toshkent sh., Amir Temur ko'chasi, 123-uy</span>
               </div>
-              <div class="flex items-center space-x-2">
+              <div class="flex items-center space-x-3">
                 <i class="fas fa-phone text-rose-500"></i>
                 <span>+998 90 123 45 67</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-envelope text-rose-500"></i>
+                <span>info@gustorestaurant.uz</span>
+              </div>
+              <div class="flex space-x-3 pt-2">
+                <a
+                  href="#"
+                  class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center hover:bg-rose-500 transition"
+                >
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a
+                  href="#"
+                  class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center hover:bg-rose-500 transition"
+                >
+                  <i class="fab fa-telegram"></i>
+                </a>
+                <a
+                  href="#"
+                  class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center hover:bg-rose-500 transition"
+                >
+                  <i class="fab fa-facebook"></i>
+                </a>
               </div>
             </div>
           </div>
         </div>
         <div
-          class="border-t mt-12 pt-8 text-center text-sm"
-          style="border-color: var(--border); color: var(--text-secondary)"
+          class="border-t mt-10 pt-8 text-center text-sm"
+          style="border-color: rgba(255, 255, 255, 0.1)"
         >
           <p>&copy; 2026 Gusto Restaurant. Barcha huquqlar himoyalangan.</p>
         </div>
@@ -681,20 +1145,23 @@
     <!-- Toast Notification -->
     <div
       id="toast"
-      class="toast fixed bottom-8 right-8 z-50 rounded-2xl p-4 shadow-2xl transform translate-x-full transition-all duration-500 hidden"
+      class="toast fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 rounded-2xl p-3 sm:p-4 shadow-2xl transform translate-x-full transition-all duration-500 hidden"
     >
       <div class="flex items-center space-x-3">
         <div
-          class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center"
+          class="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0"
         >
-          <i class="fas fa-check-circle text-green-500 text-xl"></i>
+          <i class="fas fa-check-circle text-green-500 text-lg sm:text-xl"></i>
         </div>
         <div>
-          <p class="font-semibold text-sm" style="color: var(--text)">
+          <p
+            class="font-semibold text-xs sm:text-sm"
+            style="color: var(--text)"
+          >
             Savatga qo'shildi!
           </p>
           <p
-            class="text-xs"
+            class="text-[10px] sm:text-xs"
             style="color: var(--text-secondary)"
             id="toastMessage"
           ></p>
@@ -721,6 +1188,66 @@
       const savedTheme = localStorage.getItem("theme") || "light";
       document.documentElement.classList.remove("light", "dark");
       document.documentElement.classList.add(savedTheme);
+
+      // Mobile Menu
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const closeMobileMenu = document.getElementById("closeMobileMenu");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.style.display = "block";
+        setTimeout(() => mobileMenu.classList.add("open"), 10);
+      });
+
+      closeMobileMenu.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+        setTimeout(() => (mobileMenu.style.display = "none"), 400);
+      });
+
+      mobileMenu.addEventListener("click", (e) => {
+        if (e.target === mobileMenu) {
+          mobileMenu.classList.remove("open");
+          setTimeout(() => (mobileMenu.style.display = "none"), 400);
+        }
+      });
+
+      // Close mobile menu on link click
+      document.querySelectorAll(".mobile-nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("open");
+          setTimeout(() => (mobileMenu.style.display = "none"), 400);
+        });
+      });
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+
+        // Active nav link
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop - 100;
+          const sectionHeight = section.offsetHeight;
+          if (
+            window.scrollY >= sectionTop &&
+            window.scrollY < sectionTop + sectionHeight
+          ) {
+            navLinks.forEach((link) => {
+              link.classList.remove("active", "text-rose-500");
+              if (link.getAttribute("href") === `#${section.id}`) {
+                link.classList.add("active", "text-rose-500");
+              }
+            });
+          }
+        });
+      });
 
       // Menu Data
       const menuItems = [
@@ -906,9 +1433,9 @@
 
         if (items.length === 0) {
           menuGrid.innerHTML = `
-            <div class="col-span-full text-center py-20">
-              <i class="fas fa-utensils text-6xl mb-4 opacity-20"></i>
-              <p class="text-xl" style="color: var(--text-secondary)">Bu kategoriyada hozircha taom yo'q</p>
+            <div class="col-span-full text-center py-12 sm:py-20">
+              <i class="fas fa-utensils text-4xl sm:text-6xl mb-4 opacity-20"></i>
+              <p class="text-base sm:text-xl" style="color: var(--text-secondary)">Bu kategoriyada hozircha taom yo'q</p>
             </div>
           `;
           return;
@@ -916,15 +1443,15 @@
 
         items.forEach((item) => {
           const card = document.createElement("div");
-          card.className = "menu-card rounded-3xl overflow-hidden";
+          card.className = "menu-card";
           card.innerHTML = `
-            <div class="card-image relative h-64 overflow-hidden">
-              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover transition duration-700">
+            <div class="card-image relative h-48 sm:h-56 lg:h-64 overflow-hidden">
+              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
               
               ${
                 item.popular
                   ? `
-                <div class="popular-badge absolute top-4 right-4 text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5">
+                <div class="popular-badge absolute top-3 right-3 sm:top-4 sm:right-4 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center space-x-1 sm:space-x-1.5">
                   <i class="fas fa-fire"></i>
                   <span>Mashhur</span>
                 </div>
@@ -935,7 +1462,7 @@
               ${
                 item.isNew
                   ? `
-                <div class="new-badge absolute top-4 right-4 text-white px-3 py-1.5 rounded-full text-xs font-bold flex items-center space-x-1.5">
+                <div class="new-badge absolute top-3 right-3 sm:top-4 sm:right-4 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center space-x-1 sm:space-x-1.5">
                   <i class="fas fa-sparkles"></i>
                   <span>Yangi</span>
                 </div>
@@ -946,45 +1473,34 @@
               ${
                 item.oldPrice
                   ? `
-                <div class="discount-badge absolute top-4 left-4 text-white px-2.5 py-1 rounded-full text-xs font-bold">
+                <div class="discount-badge absolute top-3 left-3 sm:top-4 sm:left-4 text-white px-2 sm:px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold">
                   -${Math.round((1 - item.price / item.oldPrice) * 100)}%
                 </div>
               `
                   : ""
               }
-              
-              <div class="absolute bottom-4 left-4 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition duration-300">
-                <span class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium flex items-center space-x-1.5" style="color: var(--text)">
-                  <i class="fas fa-fire text-orange-500"></i>
-                  <span>${item.calories}</span>
-                </span>
-                <span class="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium flex items-center space-x-1.5" style="color: var(--text)">
-                  <i class="fas fa-weight-hanging text-blue-500"></i>
-                  <span>${item.weight}</span>
-                </span>
-              </div>
             </div>
             
-            <div class="p-6">
+            <div class="p-4 sm:p-6">
               <div class="flex items-center justify-between mb-2">
-                <h3 class="text-xl font-bold font-playfair" style="color: var(--text)">${item.name}</h3>
+                <h3 class="text-lg sm:text-xl font-bold font-playfair" style="color: var(--text)">${item.name}</h3>
                 <div class="flex items-center space-x-1">
-                  <span class="stars">${"★".repeat(Math.floor(item.rating))}${item.rating % 1 >= 0.5 ? "½" : ""}</span>
-                  <span class="text-sm font-bold text-yellow-500">${item.rating}</span>
+                  <span class="stars text-xs sm:text-sm">${"★".repeat(Math.floor(item.rating))}${item.rating % 1 >= 0.5 ? "½" : ""}</span>
+                  <span class="text-xs sm:text-sm font-bold text-yellow-500">${item.rating}</span>
                 </div>
               </div>
               
-              <p class="text-sm mb-4 leading-relaxed" style="color: var(--text-secondary)">${item.description}</p>
+              <p class="text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed" style="color: var(--text-secondary)">${item.description}</p>
               
-              <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center justify-between mb-3 sm:mb-4">
                 <div class="flex items-baseline space-x-2">
-                  <span class="text-2xl font-bold text-rose-500">${item.price.toLocaleString()}</span>
-                  <span class="text-sm" style="color: var(--text-secondary)">so'm</span>
-                  ${item.oldPrice ? `<span class="text-sm line-through" style="color: var(--text-secondary)">${item.oldPrice.toLocaleString()}</span>` : ""}
+                  <span class="text-xl sm:text-2xl font-bold text-rose-500">${item.price.toLocaleString()}</span>
+                  <span class="text-xs sm:text-sm" style="color: var(--text-secondary)">so'm</span>
+                  ${item.oldPrice ? `<span class="text-xs sm:text-sm line-through" style="color: var(--text-secondary)">${item.oldPrice.toLocaleString()}</span>` : ""}
                 </div>
               </div>
               
-              <button onclick="addToCart('${item.name}', ${item.price})" class="add-cart-btn w-full text-white py-3.5 rounded-xl font-semibold flex items-center justify-center space-x-2">
+              <button onclick="addToCart('${item.name}', ${item.price})" class="add-cart-btn w-full text-white text-sm sm:text-base flex items-center justify-center space-x-2">
                 <i class="fas fa-shopping-bag"></i>
                 <span>Savatga qo'shish</span>
               </button>
@@ -1001,7 +1517,6 @@
         badge.classList.add("scale-125");
         setTimeout(() => badge.classList.remove("scale-125"), 200);
 
-        // Toast notification
         const toast = document.getElementById("toast");
         const toastMessage = document.getElementById("toastMessage");
         toastMessage.textContent = `${name} - ${price.toLocaleString()} so'm`;
@@ -1015,10 +1530,7 @@
 
       function filterCategory(category, buttonElement) {
         const buttons = document.querySelectorAll(".category-btn");
-        buttons.forEach((btn) => {
-          btn.classList.remove("active");
-        });
-
+        buttons.forEach((btn) => btn.classList.remove("active"));
         buttonElement.classList.add("active");
 
         let filteredItems;
