@@ -103,12 +103,20 @@
         overflow-x: hidden;
       }
 
-      /* Section Styles */
-      .section-full {
+      /* Section Styles - Fixed spacing */
+      section {
+        padding: 100px 0;
         min-height: 100vh;
         display: flex;
         align-items: center;
         position: relative;
+      }
+
+      @media (max-width: 768px) {
+        section {
+          padding: 80px 0;
+          min-height: auto;
+        }
       }
 
       /* Navigation */
@@ -131,6 +139,7 @@
         position: relative;
         transition: all 0.3s ease;
         padding-bottom: 4px;
+        cursor: pointer;
       }
 
       .nav-link::after {
@@ -161,6 +170,7 @@
         box-shadow: var(--shadow);
         border-radius: 24px;
         overflow: hidden;
+        height: 100%;
       }
 
       .menu-card:hover {
@@ -185,6 +195,7 @@
         border-radius: 50px;
         padding: 10px 24px;
         font-size: 14px;
+        cursor: pointer;
       }
 
       .category-btn:hover {
@@ -211,6 +222,9 @@
         border-radius: 14px;
         padding: 14px;
         font-weight: 600;
+        cursor: pointer;
+        border: none;
+        width: 100%;
       }
 
       .add-cart-btn:hover {
@@ -330,6 +344,8 @@
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         animation: slideIn 0.5s ease;
         border-radius: 16px;
+        position: fixed;
+        z-index: 100;
       }
 
       @keyframes slideIn {
@@ -348,6 +364,7 @@
         background: var(--footer-bg);
         color: var(--footer-text);
         border-top: 1px solid var(--border);
+        padding: 60px 0 30px;
       }
 
       .footer-heading {
@@ -355,6 +372,7 @@
         position: relative;
         padding-bottom: 12px;
         margin-bottom: 20px;
+        font-weight: 700;
       }
 
       .footer-heading::after {
@@ -371,6 +389,7 @@
       .footer-link {
         transition: all 0.3s ease;
         display: inline-block;
+        cursor: pointer;
       }
 
       .footer-link:hover {
@@ -380,6 +399,14 @@
 
       /* Mobile Menu */
       .mobile-menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 100%;
+        z-index: 40;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
         transform: translateX(100%);
         transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
@@ -388,34 +415,85 @@
         transform: translateX(0);
       }
 
-      /* Responsive Adjustments */
+      .mobile-menu-content {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 320px;
+        max-width: 85vw;
+        background: var(--card);
+        padding: 24px;
+        padding-top: 100px;
+      }
+
+      /* Contact Section */
+      .contact-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 30px;
+        transition: all 0.3s ease;
+      }
+
+      .contact-card:hover {
+        box-shadow: var(--shadow-hover);
+        border-color: #e11d4840;
+      }
+
+      /* Map Container */
+      .map-container {
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      /* Responsive fixes */
+      @media (max-width: 1024px) {
+        section {
+          padding: 80px 0;
+        }
+
+        .menu-grid {
+          gap: 20px;
+        }
+      }
+
       @media (max-width: 768px) {
-        .section-full {
-          min-height: auto;
-          padding: 100px 0 60px;
+        section {
+          padding: 60px 0;
         }
 
         .menu-card {
-          border-radius: 20px;
+          border-radius: 18px;
         }
 
         .category-btn {
-          padding: 8px 18px;
-          font-size: 13px;
+          padding: 8px 16px;
+          font-size: 12px;
         }
 
         nav {
           height: 70px;
         }
+
+        .contact-card {
+          padding: 20px;
+        }
       }
 
       @media (max-width: 640px) {
+        section {
+          padding: 50px 0;
+        }
+
         .hero-title {
-          font-size: 2.5rem;
+          font-size: 2rem;
         }
 
         .menu-grid {
-          gap: 16px;
+          gap: 12px;
         }
       }
     </style>
@@ -462,25 +540,25 @@
             >
             <a
               href="#menu"
-              class="nav-link hover:text-rose-500 transition font-medium text-sm uppercase tracking-wider"
+              class="nav-link font-medium text-sm uppercase tracking-wider"
               style="color: var(--text-secondary)"
               >Menu</a
             >
             <a
               href="#special"
-              class="nav-link hover:text-rose-500 transition font-medium text-sm uppercase tracking-wider"
+              class="nav-link font-medium text-sm uppercase tracking-wider"
               style="color: var(--text-secondary)"
               >Maxsus</a
             >
             <a
               href="#about"
-              class="nav-link hover:text-rose-500 transition font-medium text-sm uppercase tracking-wider"
+              class="nav-link font-medium text-sm uppercase tracking-wider"
               style="color: var(--text-secondary)"
               >Haqida</a
             >
             <a
               href="#contact"
-              class="nav-link hover:text-rose-500 transition font-medium text-sm uppercase tracking-wider"
+              class="nav-link font-medium text-sm uppercase tracking-wider"
               style="color: var(--text-secondary)"
               >Aloqa</a
             >
@@ -488,7 +566,6 @@
 
           <!-- Actions -->
           <div class="flex items-center space-x-2 sm:space-x-4">
-            <!-- Theme Toggle -->
             <div
               class="theme-toggle flex-shrink-0"
               onclick="toggleTheme()"
@@ -500,7 +577,6 @@
               </div>
             </div>
 
-            <!-- Cart -->
             <button
               class="relative flex-shrink-0 p-2"
               style="color: var(--text)"
@@ -514,7 +590,6 @@
               >
             </button>
 
-            <!-- Order Button -->
             <a
               href="#contact"
               class="hidden md:block bg-gradient-to-r from-rose-500 to-pink-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold text-xs sm:text-sm hover:shadow-lg hover:shadow-rose-500/25 transition-all whitespace-nowrap"
@@ -522,7 +597,6 @@
               <i class="fas fa-phone mr-1 sm:mr-2"></i>Buyurtma
             </a>
 
-            <!-- Mobile Menu Toggle -->
             <button
               id="mobileMenuBtn"
               class="lg:hidden p-2 flex-shrink-0"
@@ -536,16 +610,9 @@
       </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div
-      id="mobileMenu"
-      class="mobile-menu fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
-      style="display: none"
-    >
-      <div
-        class="absolute right-0 top-0 h-full w-80 max-w-[85vw] p-6 pt-24"
-        style="background: var(--card)"
-      >
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+      <div class="mobile-menu-content">
         <button
           id="closeMobileMenu"
           class="absolute top-6 right-6 p-2"
@@ -587,12 +654,8 @@
       </div>
     </div>
 
-    <!-- Hero Section (100vh) -->
-    <section
-      id="home"
-      class="section-full"
-      style="background: var(--hero-bg); padding-top: 80px"
-    >
+    <!-- Hero Section -->
+    <section id="home" style="background: var(--hero-bg); padding-top: 120px">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
         <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div class="text-center lg:text-left">
@@ -642,7 +705,6 @@
               </a>
             </div>
 
-            <!-- Quick Stats -->
             <div
               class="grid grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12 pt-6 sm:pt-8 border-t"
               style="border-color: var(--border)"
@@ -683,7 +745,6 @@
             </div>
           </div>
 
-          <!-- Hero Image -->
           <div class="hidden lg:block relative">
             <div class="relative">
               <img
@@ -720,10 +781,9 @@
       </div>
     </section>
 
-    <!-- Menu Section (100vh) -->
-    <section id="menu" class="section-full" style="background: var(--bg)">
+    <!-- Menu Section -->
+    <section id="menu" style="background: var(--bg)">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
-        <!-- Section Header -->
         <div class="text-center mb-8 sm:mb-12 lg:mb-16">
           <span
             class="text-rose-500 font-semibold text-xs sm:text-sm uppercase tracking-wider"
@@ -747,7 +807,6 @@
           </p>
         </div>
 
-        <!-- Category Filter -->
         <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12">
           <button
             onclick="filterCategory('all', this)"
@@ -786,7 +845,6 @@
           </button>
         </div>
 
-        <!-- Menu Grid -->
         <div
           id="menuGrid"
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
@@ -796,12 +854,8 @@
       </div>
     </section>
 
-    <!-- Special Section (100vh) -->
-    <section
-      id="special"
-      class="section-full"
-      style="background: var(--bg-secondary)"
-    >
+    <!-- Special Section -->
+    <section id="special" style="background: var(--bg-secondary)">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full text-center">
         <span
           class="text-rose-500 font-semibold text-xs sm:text-sm uppercase tracking-wider"
@@ -824,14 +878,10 @@
           Har kuni yangi maxsus takliflar va ajoyib chegirmalar
         </p>
 
-        <!-- Features Grid -->
         <div
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
         >
-          <div
-            class="p-6 sm:p-8 rounded-2xl"
-            style="background: var(--card); border: 1px solid var(--border)"
-          >
+          <div class="contact-card text-center">
             <div
               class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4"
             >
@@ -850,10 +900,7 @@
               Eng sara va yangi mahsulotlardan tayyorlanadi
             </p>
           </div>
-          <div
-            class="p-6 sm:p-8 rounded-2xl"
-            style="background: var(--card); border: 1px solid var(--border)"
-          >
+          <div class="contact-card text-center">
             <div
               class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-cyan-100 to-blue-100 dark:from-cyan-900/30 dark:to-blue-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4"
             >
@@ -874,10 +921,7 @@
               30-40 daqiqa ichida manzilingizga yetkaziladi
             </p>
           </div>
-          <div
-            class="p-6 sm:p-8 rounded-2xl sm:col-span-2 lg:col-span-1"
-            style="background: var(--card); border: 1px solid var(--border)"
-          >
+          <div class="contact-card text-center sm:col-span-2 lg:col-span-1">
             <div
               class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-purple-100 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4"
             >
@@ -902,8 +946,8 @@
       </div>
     </section>
 
-    <!-- About Section (100vh) -->
-    <section id="about" class="section-full" style="background: var(--bg)">
+    <!-- About Section -->
+    <section id="about" style="background: var(--bg)">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
         <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div>
@@ -968,76 +1012,186 @@
       </div>
     </section>
 
-    <!-- Contact Section (100vh) -->
-    <section
-      id="contact"
-      class="section-full"
-      style="background: var(--bg-secondary)"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full text-center">
-        <span
-          class="text-rose-500 font-semibold text-xs sm:text-sm uppercase tracking-wider"
-          >Aloqa</span
-        >
-        <h2
-          class="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair mt-2 mb-4"
-          style="color: var(--text)"
-        >
-          Biz Bilan
+    <!-- Contact Section -->
+    <section id="contact" style="background: var(--bg-secondary)">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+        <div class="text-center mb-8 sm:mb-12">
           <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-600"
-            >Bog'laning</span
+            class="text-rose-500 font-semibold text-xs sm:text-sm uppercase tracking-wider"
+            >Aloqa</span
           >
-        </h2>
-        <p
-          class="max-w-2xl mx-auto mb-8 sm:mb-12 text-sm sm:text-base"
-          style="color: var(--text-secondary)"
-        >
-          Stol band qilish yoki yetkazib berish uchun biz bilan bog'laning
-        </p>
+          <h2
+            class="text-3xl sm:text-4xl md:text-5xl font-bold font-playfair mt-2 mb-4"
+            style="color: var(--text)"
+          >
+            Biz Bilan
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-pink-600"
+              >Bog'laning</span
+            >
+          </h2>
+          <p
+            class="max-w-2xl mx-auto text-sm sm:text-base"
+            style="color: var(--text-secondary)"
+          >
+            Stol band qilish yoki yetkazib berish uchun biz bilan bog'laning
+          </p>
+        </div>
 
-        <div
-          class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto"
-        >
-          <div
-            class="p-6 rounded-2xl"
-            style="background: var(--card); border: 1px solid var(--border)"
-          >
-            <i class="fas fa-phone text-rose-500 text-2xl sm:text-3xl mb-3"></i>
-            <h3 class="font-bold text-lg mb-2" style="color: var(--text)">
-              Telefon
-            </h3>
-            <p class="text-sm" style="color: var(--text-secondary)">
-              +998 90 123 45 67
-            </p>
+        <div class="grid lg:grid-cols-2 gap-6 lg:gap-8">
+          <!-- Left Side - Contact Info -->
+          <div class="space-y-4 sm:space-y-6">
+            <div class="contact-card">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-rose-100 to-pink-100 dark:from-rose-900/30 dark:to-pink-900/30 rounded-xl flex items-center justify-center flex-shrink-0"
+                >
+                  <i
+                    class="fas fa-map-marker-alt text-rose-500 text-xl sm:text-2xl"
+                  ></i>
+                </div>
+                <div>
+                  <h3
+                    class="text-lg sm:text-xl font-bold mb-1"
+                    style="color: var(--text)"
+                  >
+                    Manzil
+                  </h3>
+                  <p
+                    class="text-sm sm:text-base"
+                    style="color: var(--text-secondary)"
+                  >
+                    Samarqand shahri,<br />Amir Temur ko'chasi, 123-uy
+                  </p>
+                  <p
+                    class="text-xs sm:text-sm mt-2 text-rose-500 font-semibold"
+                  >
+                    Mo'ljal: Registon maydoni yaqinida
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-cyan-100 to-blue-100 dark:from-cyan-900/30 dark:to-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="fas fa-phone text-cyan-500 text-xl sm:text-2xl"></i>
+                </div>
+                <div>
+                  <h3
+                    class="text-lg sm:text-xl font-bold mb-1"
+                    style="color: var(--text)"
+                  >
+                    Telefon
+                  </h3>
+                  <p
+                    class="text-sm sm:text-base"
+                    style="color: var(--text-secondary)"
+                  >
+                    +998 90 123 45 67
+                  </p>
+                  <p
+                    class="text-sm sm:text-base"
+                    style="color: var(--text-secondary)"
+                  >
+                    +998 93 765 43 21
+                  </p>
+                  <p
+                    class="text-xs sm:text-sm mt-2 text-rose-500 font-semibold"
+                  >
+                    24/7 qo'ng'iroqlar qabul qilinadi
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-purple-100 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 rounded-xl flex items-center justify-center flex-shrink-0"
+                >
+                  <i
+                    class="fas fa-envelope text-purple-500 text-xl sm:text-2xl"
+                  ></i>
+                </div>
+                <div>
+                  <h3
+                    class="text-lg sm:text-xl font-bold mb-1"
+                    style="color: var(--text)"
+                  >
+                    Email
+                  </h3>
+                  <p
+                    class="text-sm sm:text-base"
+                    style="color: var(--text-secondary)"
+                  >
+                    info@gustorestaurant.uz
+                  </p>
+                  <p
+                    class="text-sm sm:text-base"
+                    style="color: var(--text-secondary)"
+                  >
+                    bandlash@gustorestaurant.uz
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 rounded-xl flex items-center justify-center flex-shrink-0"
+                >
+                  <i
+                    class="fas fa-clock text-green-500 text-xl sm:text-2xl"
+                  ></i>
+                </div>
+                <div>
+                  <h3
+                    class="text-lg sm:text-xl font-bold mb-1"
+                    style="color: var(--text)"
+                  >
+                    Ish Vaqti
+                  </h3>
+                  <div
+                    class="space-y-1 text-sm sm:text-base"
+                    style="color: var(--text-secondary)"
+                  >
+                    <div class="flex justify-between gap-4">
+                      <span>Dushanba - Juma</span>
+                      <span class="text-rose-500 font-semibold"
+                        >10:00 - 23:00</span
+                      >
+                    </div>
+                    <div class="flex justify-between gap-4">
+                      <span>Shanba - Yakshanba</span>
+                      <span class="text-rose-500 font-semibold"
+                        >11:00 - 00:00</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <!-- Right Side - Map -->
           <div
-            class="p-6 rounded-2xl"
-            style="background: var(--card); border: 1px solid var(--border)"
+            class="map-container h-[300px] sm:h-[400px] lg:h-full min-h-[400px]"
           >
-            <i
-              class="fas fa-envelope text-rose-500 text-2xl sm:text-3xl mb-3"
-            ></i>
-            <h3 class="font-bold text-lg mb-2" style="color: var(--text)">
-              Email
-            </h3>
-            <p class="text-sm" style="color: var(--text-secondary)">
-              info@gustorestaurant.uz
-            </p>
-          </div>
-          <div
-            class="p-6 rounded-2xl sm:col-span-2 lg:col-span-1"
-            style="background: var(--card); border: 1px solid var(--border)"
-          >
-            <i
-              class="fas fa-map-marker-alt text-rose-500 text-2xl sm:text-3xl mb-3"
-            ></i>
-            <h3 class="font-bold text-lg mb-2" style="color: var(--text)">
-              Manzil
-            </h3>
-            <p class="text-sm" style="color: var(--text-secondary)">
-              Toshkent sh., Amir Temur ko'chasi, 123
-            </p>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3072.123456789!2d66.9597!3d39.6542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDM5JzE1LjEiTiA2NsKwNTcnMzQuOSJF!5e0!3m2!1suz!2s!4v1234567890"
+              width="100%"
+              height="100%"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Gusto Restaurant - Samarqand"
+            >
+            </iframe>
           </div>
         </div>
       </div>
@@ -1045,7 +1199,7 @@
 
     <!-- Footer -->
     <footer>
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10"
         >
@@ -1065,11 +1219,11 @@
             </div>
             <p class="text-sm leading-relaxed">
               Premium restaurant. Eng yuqori sifatli taomlar va ajoyib
-              atmosfera.
+              atmosfera. Samarqand shahrida joylashgan.
             </p>
           </div>
           <div>
-            <h4 class="footer-heading font-bold text-lg">Havolalar</h4>
+            <h4 class="footer-heading text-lg">Havolalar</h4>
             <div class="space-y-2 text-sm">
               <a href="#home" class="footer-link block">Bosh sahifa</a>
               <a href="#menu" class="footer-link block">Menu</a>
@@ -1079,28 +1233,28 @@
             </div>
           </div>
           <div>
-            <h4 class="footer-heading font-bold text-lg">Ish Vaqti</h4>
+            <h4 class="footer-heading text-lg">Ish Vaqti</h4>
             <div class="space-y-2 text-sm">
-              <div class="flex justify-between">
+              <div class="flex justify-between gap-4">
                 <span>Dushanba - Juma</span>
                 <span class="text-rose-400 font-semibold">10:00 - 23:00</span>
               </div>
-              <div class="flex justify-between">
+              <div class="flex justify-between gap-4">
                 <span>Shanba</span>
                 <span class="text-rose-400 font-semibold">11:00 - 00:00</span>
               </div>
-              <div class="flex justify-between">
+              <div class="flex justify-between gap-4">
                 <span>Yakshanba</span>
                 <span class="text-rose-400 font-semibold">11:00 - 22:00</span>
               </div>
             </div>
           </div>
           <div>
-            <h4 class="footer-heading font-bold text-lg">Aloqa</h4>
+            <h4 class="footer-heading text-lg">Aloqa</h4>
             <div class="space-y-3 text-sm">
               <div class="flex items-start space-x-3">
                 <i class="fas fa-map-marker-alt text-rose-500 mt-1"></i>
-                <span>Toshkent sh., Amir Temur ko'chasi, 123-uy</span>
+                <span>Samarqand sh., Amir Temur ko'chasi, 123-uy</span>
               </div>
               <div class="flex items-center space-x-3">
                 <i class="fas fa-phone text-rose-500"></i>
@@ -1137,7 +1291,10 @@
           class="border-t mt-10 pt-8 text-center text-sm"
           style="border-color: rgba(255, 255, 255, 0.1)"
         >
-          <p>&copy; 2026 Gusto Restaurant. Barcha huquqlar himoyalangan.</p>
+          <p>
+            &copy; 2026 Gusto Restaurant. Barcha huquqlar himoyalangan.
+            Samarqand shahri.
+          </p>
         </div>
       </div>
     </footer>
@@ -1145,7 +1302,7 @@
     <!-- Toast Notification -->
     <div
       id="toast"
-      class="toast fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 rounded-2xl p-3 sm:p-4 shadow-2xl transform translate-x-full transition-all duration-500 hidden"
+      class="toast bottom-4 right-4 sm:bottom-8 sm:right-8 rounded-2xl p-3 sm:p-4 shadow-2xl transform translate-x-full transition-all duration-500 hidden"
     >
       <div class="flex items-center space-x-3">
         <div
@@ -1184,7 +1341,6 @@
         }
       }
 
-      // Load saved theme
       const savedTheme = localStorage.getItem("theme") || "light";
       document.documentElement.classList.remove("light", "dark");
       document.documentElement.classList.add(savedTheme);
@@ -1195,27 +1351,22 @@
       const closeMobileMenu = document.getElementById("closeMobileMenu");
 
       mobileMenuBtn.addEventListener("click", () => {
-        mobileMenu.style.display = "block";
-        setTimeout(() => mobileMenu.classList.add("open"), 10);
+        mobileMenu.classList.add("open");
       });
 
       closeMobileMenu.addEventListener("click", () => {
         mobileMenu.classList.remove("open");
-        setTimeout(() => (mobileMenu.style.display = "none"), 400);
       });
 
       mobileMenu.addEventListener("click", (e) => {
         if (e.target === mobileMenu) {
           mobileMenu.classList.remove("open");
-          setTimeout(() => (mobileMenu.style.display = "none"), 400);
         }
       });
 
-      // Close mobile menu on link click
       document.querySelectorAll(".mobile-nav-link").forEach((link) => {
         link.addEventListener("click", () => {
           mobileMenu.classList.remove("open");
-          setTimeout(() => (mobileMenu.style.display = "none"), 400);
         });
       });
 
@@ -1228,7 +1379,6 @@
           navbar.classList.remove("scrolled");
         }
 
-        // Active nav link
         const sections = document.querySelectorAll("section[id]");
         const navLinks = document.querySelectorAll(".nav-link");
 
@@ -1263,8 +1413,6 @@
           rating: 4.9,
           popular: true,
           isNew: false,
-          weight: "450g",
-          calories: "680 kkal",
         },
         {
           id: 2,
@@ -1277,8 +1425,6 @@
           rating: 4.8,
           popular: true,
           isNew: false,
-          weight: "350g",
-          calories: "520 kkal",
         },
         {
           id: 3,
@@ -1291,8 +1437,6 @@
           rating: 4.7,
           popular: false,
           isNew: true,
-          weight: "500ml",
-          calories: "320 kkal",
         },
         {
           id: 4,
@@ -1306,8 +1450,6 @@
           rating: 4.6,
           popular: false,
           isNew: false,
-          weight: "300g",
-          calories: "480 kkal",
         },
         {
           id: 5,
@@ -1321,8 +1463,6 @@
           rating: 4.5,
           popular: false,
           isNew: true,
-          weight: "350g",
-          calories: "750 kkal",
         },
         {
           id: 6,
@@ -1335,8 +1475,6 @@
           rating: 4.9,
           popular: true,
           isNew: false,
-          weight: "500g",
-          calories: "890 kkal",
         },
         {
           id: 7,
@@ -1349,8 +1487,6 @@
           rating: 4.4,
           popular: false,
           isNew: false,
-          weight: "350ml",
-          calories: "120 kkal",
         },
         {
           id: 8,
@@ -1363,8 +1499,6 @@
           rating: 4.7,
           popular: true,
           isNew: false,
-          weight: "400ml",
-          calories: "160 kkal",
         },
         {
           id: 9,
@@ -1377,8 +1511,6 @@
           rating: 4.3,
           popular: false,
           isNew: false,
-          weight: "500ml",
-          calories: "40 kkal",
         },
         {
           id: 10,
@@ -1391,8 +1523,6 @@
           rating: 4.8,
           popular: false,
           isNew: false,
-          weight: "200g",
-          calories: "420 kkal",
         },
         {
           id: 11,
@@ -1406,8 +1536,6 @@
           rating: 4.9,
           popular: true,
           isNew: false,
-          weight: "180g",
-          calories: "480 kkal",
         },
         {
           id: 12,
@@ -1420,8 +1548,6 @@
           rating: 4.6,
           popular: false,
           isNew: true,
-          weight: "150g",
-          calories: "280 kkal",
         },
       ];
 
@@ -1447,40 +1573,10 @@
           card.innerHTML = `
             <div class="card-image relative h-48 sm:h-56 lg:h-64 overflow-hidden">
               <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
-              
-              ${
-                item.popular
-                  ? `
-                <div class="popular-badge absolute top-3 right-3 sm:top-4 sm:right-4 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center space-x-1 sm:space-x-1.5">
-                  <i class="fas fa-fire"></i>
-                  <span>Mashhur</span>
-                </div>
-              `
-                  : ""
-              }
-              
-              ${
-                item.isNew
-                  ? `
-                <div class="new-badge absolute top-3 right-3 sm:top-4 sm:right-4 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center space-x-1 sm:space-x-1.5">
-                  <i class="fas fa-sparkles"></i>
-                  <span>Yangi</span>
-                </div>
-              `
-                  : ""
-              }
-              
-              ${
-                item.oldPrice
-                  ? `
-                <div class="discount-badge absolute top-3 left-3 sm:top-4 sm:left-4 text-white px-2 sm:px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold">
-                  -${Math.round((1 - item.price / item.oldPrice) * 100)}%
-                </div>
-              `
-                  : ""
-              }
+              ${item.popular ? `<div class="popular-badge absolute top-3 right-3 sm:top-4 sm:right-4 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center space-x-1 sm:space-x-1.5"><i class="fas fa-fire"></i><span>Mashhur</span></div>` : ""}
+              ${item.isNew ? `<div class="new-badge absolute top-3 right-3 sm:top-4 sm:right-4 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold flex items-center space-x-1 sm:space-x-1.5"><i class="fas fa-sparkles"></i><span>Yangi</span></div>` : ""}
+              ${item.oldPrice ? `<div class="discount-badge absolute top-3 left-3 sm:top-4 sm:left-4 text-white px-2 sm:px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold">-${Math.round((1 - item.price / item.oldPrice) * 100)}%</div>` : ""}
             </div>
-            
             <div class="p-4 sm:p-6">
               <div class="flex items-center justify-between mb-2">
                 <h3 class="text-lg sm:text-xl font-bold font-playfair" style="color: var(--text)">${item.name}</h3>
@@ -1489,9 +1585,7 @@
                   <span class="text-xs sm:text-sm font-bold text-yellow-500">${item.rating}</span>
                 </div>
               </div>
-              
               <p class="text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed" style="color: var(--text-secondary)">${item.description}</p>
-              
               <div class="flex items-center justify-between mb-3 sm:mb-4">
                 <div class="flex items-baseline space-x-2">
                   <span class="text-xl sm:text-2xl font-bold text-rose-500">${item.price.toLocaleString()}</span>
@@ -1499,8 +1593,7 @@
                   ${item.oldPrice ? `<span class="text-xs sm:text-sm line-through" style="color: var(--text-secondary)">${item.oldPrice.toLocaleString()}</span>` : ""}
                 </div>
               </div>
-              
-              <button onclick="addToCart('${item.name}', ${item.price})" class="add-cart-btn w-full text-white text-sm sm:text-base flex items-center justify-center space-x-2">
+              <button onclick="addToCart('${item.name}', ${item.price})" class="add-cart-btn text-white text-sm sm:text-base flex items-center justify-center space-x-2">
                 <i class="fas fa-shopping-bag"></i>
                 <span>Savatga qo'shish</span>
               </button>
